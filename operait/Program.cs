@@ -1,9 +1,7 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using operait.Data;
 using Blazorise;
-using Blazorise.Icons.FontAwesome;
 using Blazorise.Bootstrap5;
+using Blazorise.Icons.FontAwesome;
+using operait.Data;
 
 namespace operait
 {

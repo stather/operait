@@ -2,18 +2,46 @@
 
 <PageTitle>operait</PageTitle>
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+<Layout>
+    <LayoutHeader>
+        <Bar Breakpoint="Breakpoint.Desktop"
+             Background="Background.Light"
+             ThemeContrast="ThemeContrast.Light">
+            <BarBrand>
+                operAIt
+            </BarBrand>
+            <BarToggler />
+            <BarMenu>
+                <BarStart>
+                    <BarItem>
+                        <BarLink>Alerts</BarLink>
+                    </BarItem>
+                    <BarItem>
+                        <BarLink>Incidents</BarLink>
+                    </BarItem>
+                    <BarItem>
+                        <BarLink>Who is on-call</BarLink>
+                    </BarItem>
+                    <BarItem>
+                        <BarLink>Teams</BarLink>
+                    </BarItem>
+                    <BarItem>
+                        <BarLink>Services</BarLink>
+                    </BarItem>
+                    <BarItem>
+                        <BarLink>Analytics</BarLink>
+                    </BarItem>
+                    <BarItem>
+                        <BarLink>Settings</BarLink>
+                    </BarItem>
+                </BarStart>
+                <BarEnd>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+                </BarEnd>
+            </BarMenu>
+        </Bar>
+    </LayoutHeader>
+    <LayoutContent>
+        @Body
+    </LayoutContent>
+</Layout>
