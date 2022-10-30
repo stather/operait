@@ -1,0 +1,34 @@
+﻿@page "/teams/list"
+<Container>
+    <Bar Breakpoint="Breakpoint.Desktop"
+         Background="Background.Light"
+         ThemeContrast="ThemeContrast.Light">
+        <BarBrand>Teams</BarBrand>
+        <BarMenu>
+            <BarStart>
+
+            </BarStart>
+            <BarEnd>
+                <BarItem>
+                    <Button Color="Color.Primary">Add Team</Button>
+                </BarItem>
+            </BarEnd>
+        </BarMenu>
+    </Bar>
+    <Row>
+        <Column ColumnSize="ColumnSize.Is3">
+            <Addons>
+                <Addon AddonType="AddonType.Body">
+                    <TextEdit Placeholder="Search" />
+                </Addon>
+                <Addon AddonType="AddonType.End">
+                    <Button Color="Color.Secondary">Search</Button>
+                </Addon>
+            </Addons>
+        </Column>
+    </Row>
+</Container>
+
+@code {
+
+}
