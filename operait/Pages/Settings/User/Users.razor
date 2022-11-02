@@ -13,17 +13,17 @@
             </BarStart>
             <BarEnd>
                 <BarItem>
-                    <Button Color="Color.Primary">Add user</Button>
+                    <Button Color="Color.Primary" Clicked="@ShowAddUser">Add user</Button>
                 </BarItem>
                 <BarItem>
-                    <Dropdown>
-                        <DropdownToggle Color="Color.Secondary">
+                    <BarDropdown>
+                        <BarDropdownToggle Color="Color.Secondary">
                             ...
-                        </DropdownToggle>
-                        <DropdownMenu>
-                            <DropdownItem>Deleted users</DropdownItem>
-                        </DropdownMenu>
-                    </Dropdown>
+                        </BarDropdownToggle>
+                        <BarDropdownMenu>
+                            <BarDropdownItem>Deleted users</BarDropdownItem>
+                        </BarDropdownMenu>
+                    </BarDropdown>
                 </BarItem>
             </BarEnd>
         </BarMenu>
@@ -43,4 +43,42 @@
     <Divider/>
 </Container>
 
+<Modal @ref="addUserRef">
+    <ModalContent Centered>
+        <ModalHeader>
+            <ModalTitle>Add user</ModalTitle>
+            <CloseButton/>
+        </ModalHeader>
+        <ModalBody>
+            <Fields>
+                <Field>
+                    <FieldLabel>E-mail</FieldLabel>
+                    <TextEdit @bind-Text="email" Placeholder="email@example.com" />
+                </Field>
+                <Field>
+                    <FieldLabel>Name</FieldLabel>
+                    <TextEdit @bind-Text="name" Placeholder="" />
+                </Field>
+                <Field>
+                    <FieldLabel>Select role</FieldLabel>
+                    <Select TValue="string">
+                        <SelectGroup Label="RESPONDER ROLES">
+                            <SelectItem Value=@("owner")>Owner</SelectItem>
+                            <SelectItem Value=@("admin")>Admin</SelectItem>
+                            <SelectItem Value=@("user")>User</SelectItem>
+                        </SelectGroup>
+                        <SelectGroup Label="OBSERVER ROLES">
+                            <SelectItem Value=@("stakeholder")>Stakeholder</SelectItem>
+                        </SelectGroup>
+                    </Select>
+                </Field>
+            </Fields>
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Secondary" Clicked="@HideAddUser">Cancel</Button>
+            <Button Color="Color.Primary" Clicked="@AddUserAsync">Add</Button>
+        </ModalFooter>
+
+    </ModalContent>
+</Modal>
 

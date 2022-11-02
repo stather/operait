@@ -2,6 +2,7 @@ using Blazorise;
 using Blazorise.Bootstrap5;
 using Blazorise.Icons.FontAwesome;
 using operait.Data;
+using operait.Services;
 
 namespace operait
 {
@@ -22,6 +23,9 @@ namespace operait
                 })
                 .AddBootstrap5Providers()
                 .AddFontAwesomeIcons();
+
+            builder.Services.AddSingleton<DatabaseService>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
