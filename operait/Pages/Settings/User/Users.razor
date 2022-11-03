@@ -84,26 +84,40 @@
         <Layout>
             <LayoutContent>
                 <Container>
-                <DataGrid TItem="operait.Documents.User"
-                    Data="@userList"
-                    @bind-SelectedRow="@selectedUser"
-                              Responsive Editable EditMode="DataGridEditMode.Inline" ShowPager CommandMode="DataGridCommandMode.ButtonRow" RowUpdated="UserUpdated">
-                    <DataGridColumns>
-                        <DataGridCommandColumn>
-            <SaveCommandTemplate>
-                <Button ElementId="btnSave" Type="ButtonType.Submit" PreventDefaultOnSubmit Color="Color.Primary" Clicked="@context.Clicked">@context.LocalizationString</Button>
-            </SaveCommandTemplate>
-            <CancelCommandTemplate>
-                <Button ElementId="btnCancel" Color="Color.Secondary" Clicked="@context.Clicked">@context.LocalizationString</Button>
-            </CancelCommandTemplate>
-                        </DataGridCommandColumn>
-                        <DataGridColumn Field="@nameof(operait.Documents.User.Name)" Caption="Name" Editable />
-                        <DataGridColumn Field="@nameof(operait.Documents.User.Email)" Caption="Email" Editable />
-                    </DataGridColumns>
-                    <ButtonRowTemplate>
+                    <DataGrid TItem="operait.Documents.User"
+                              Data="@userList"
+                              @bind-SelectedRow="@selectedUser"
+                              Responsive Editable EditMode="DataGridEditMode.Inline" ShowPager CommandMode="DataGridCommandMode.ButtonRow" RowUpdated="(a) => UserUpdated(a.Item)">
+                        <DataGridColumns>
+                            <DataGridCommandColumn>
+                                <SaveCommandTemplate>
+                                    <Button ElementId="btnSave" Type="ButtonType.Submit" PreventDefaultOnSubmit Color="Color.Primary" Clicked="@context.Clicked">@context.LocalizationString</Button>
+                                </SaveCommandTemplate>
+                                <CancelCommandTemplate>
+                                    <Button ElementId="btnCancel" Color="Color.Secondary" Clicked="@context.Clicked">@context.LocalizationString</Button>
+                                </CancelCommandTemplate>
+                            </DataGridCommandColumn>
+                            <DataGridColumn Field="@nameof(operait.Documents.User.Name)" Caption="Name" Editable />
+                            <DataGridColumn Field="@nameof(operait.Documents.User.Email)" Caption="Email" Editable />
+                            <DataGridColumn Field="@nameof(operait.Documents.User.Role)" Caption="Role" Editable>
+                                <EditTemplate>
+                                    <Select TValue="string" SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@( v => context.CellValue = v)">
+                                        <SelectGroup Label="RESPONDER ROLES">
+                                            <SelectItem Value=@("owner")>Owner</SelectItem>
+                                            <SelectItem Value=@("admin")>Admin</SelectItem>
+                                            <SelectItem Value=@("user")>User</SelectItem>
+                                        </SelectGroup>
+                                        <SelectGroup Label="OBSERVER ROLES">
+                                            <SelectItem Value=@("stakeholder")>Stakeholder</SelectItem>
+                                        </SelectGroup>
+                                    </Select>
+                                </EditTemplate>
+                                </DataGridColumn>
+                        </DataGridColumns>
+                        <ButtonRowTemplate>
                             <Button Color="Color.Primary" Clicked="context.EditCommand.Clicked">Edit</Button>
-                    </ButtonRowTemplate>
-                </DataGrid>
+                        </ButtonRowTemplate>
+                    </DataGrid>
                 </Container>
             </LayoutContent>
         </Layout>

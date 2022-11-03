@@ -60,7 +60,7 @@ namespace operait.Pages.Settings.User
             userList = res;
         }
 
-        void UserUpdated(SavedRowItem<operait.Documents.User, Dictionary<string,object>> savedRowItem)
+        void UserUpdated(operait.Documents.User user)
         {
 
         }
