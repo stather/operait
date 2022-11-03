@@ -15,6 +15,5 @@ namespace operait.Documents
         public string Name { get; set; }
 
 
-
     }
 }

@@ -21,5 +21,11 @@ namespace operait.Services
             await users.InsertOneAsync(user);
         }
 
+        public async Task<List<User>> GetAllUsers()
+        {
+            var users = (await database.GetCollection<User>("Users").FindAsync(user => true)).ToList();
+            return users;
+        }
+
     }
 }

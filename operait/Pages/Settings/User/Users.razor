@@ -40,14 +40,81 @@
             </Addons>
         </Column>
     </Row>
-    <Divider/>
+    <Divider />
+    <Layout Sider>
+        <LayoutSider>
+            <LayoutSiderContent>
+                <Bar Mode="BarMode.VerticalInline"
+                     CollapseMode="BarCollapseMode.Small"
+                     Breakpoint="Breakpoint.Desktop"
+                     NavigationBreakpoint="Breakpoint.Tablet"
+                     ThemeContrast="ThemeContrast.Light">
+                    <BarBrand>
+                        <BarItem>
+                            <BarLink To="#">
+                                <BarIcon IconName="IconName.Dashboard" />
+                                Saved Searches
+                            </BarLink>
+                        </BarItem>
+                    </BarBrand>
+                    <BarMenu>
+                        <BarStart>
+                            <BarItem>
+                                <BarDropdown>
+                                    <BarDropdownToggle>
+                                        <BarIcon IconName="IconName.Edit" />
+                                        Predefined
+                                    </BarDropdownToggle>
+                                    <BarDropdownMenu>
+                                        <BarDropdownItem>All users</BarDropdownItem>
+                                        <BarDropdownItem>Active users</BarDropdownItem>
+                                        <BarDropdownItem>Unverified users</BarDropdownItem>
+                                        <BarDropdownItem>Owners</BarDropdownItem>
+                                        <BarDropdownItem>Admins</BarDropdownItem>
+                                        <BarDropdownItem>Responders</BarDropdownItem>
+                                        <BarDropdownItem>Stakeholders</BarDropdownItem>
+                                    </BarDropdownMenu>
+                                </BarDropdown>
+                            </BarItem>
+                        </BarStart>
+                    </BarMenu>
+                </Bar>
+            </LayoutSiderContent>
+        </LayoutSider>
+        <Layout>
+            <LayoutContent>
+                <Container>
+                <DataGrid TItem="operait.Documents.User"
+                    Data="@userList"
+                    @bind-SelectedRow="@selectedUser"
+                              Responsive Editable EditMode="DataGridEditMode.Inline" ShowPager CommandMode="DataGridCommandMode.ButtonRow" RowUpdated="UserUpdated">
+                    <DataGridColumns>
+                        <DataGridCommandColumn>
+            <SaveCommandTemplate>
+                <Button ElementId="btnSave" Type="ButtonType.Submit" PreventDefaultOnSubmit Color="Color.Primary" Clicked="@context.Clicked">@context.LocalizationString</Button>
+            </SaveCommandTemplate>
+            <CancelCommandTemplate>
+                <Button ElementId="btnCancel" Color="Color.Secondary" Clicked="@context.Clicked">@context.LocalizationString</Button>
+            </CancelCommandTemplate>
+                        </DataGridCommandColumn>
+                        <DataGridColumn Field="@nameof(operait.Documents.User.Name)" Caption="Name" Editable />
+                        <DataGridColumn Field="@nameof(operait.Documents.User.Email)" Caption="Email" Editable />
+                    </DataGridColumns>
+                    <ButtonRowTemplate>
+                            <Button Color="Color.Primary" Clicked="context.EditCommand.Clicked">Edit</Button>
+                    </ButtonRowTemplate>
+                </DataGrid>
+                </Container>
+            </LayoutContent>
+        </Layout>
+    </Layout>
 </Container>
 
 <Modal @ref="addUserRef">
     <ModalContent Centered>
         <ModalHeader>
             <ModalTitle>Add user</ModalTitle>
-            <CloseButton/>
+            <CloseButton />
         </ModalHeader>
         <ModalBody>
             <Fields>

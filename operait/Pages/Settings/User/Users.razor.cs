@@ -16,6 +16,7 @@ using operait.Shared;
 using Blazorise;
 using operait.Services;
 using operait.Documents;
+using Blazorise.DataGrid;
 
 namespace operait.Pages.Settings.User
 {
@@ -26,6 +27,9 @@ namespace operait.Pages.Settings.User
         private string? email;
 
         private string? name;
+        private List<operait.Documents.User> userList { get; set; } = new List<Documents.User> { };
+
+        private operait.Documents.User selectedUser;
 
         [Inject]
         protected DatabaseService DatabaseService { get; set; }
@@ -48,6 +52,17 @@ namespace operait.Pages.Settings.User
                 Name = name
             };
             await DatabaseService.AddUserAsync(newUser);
+        }
+
+        protected override async Task OnInitializedAsync()
+        {
+            var res = await DatabaseService.GetAllUsers();
+            userList = res;
+        }
+
+        void UserUpdated(SavedRowItem<operait.Documents.User, Dictionary<string,object>> savedRowItem)
+        {
+
         }
 
     }
