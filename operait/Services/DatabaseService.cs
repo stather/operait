@@ -7,24 +7,32 @@ namespace operait.Services
     {
         private MongoClient client;
         private IMongoDatabase database;
+        private IMongoCollection<User> usersCollection;
+        private IMongoCollection<Team> teamsCollection;
 
         public DatabaseService(IConfiguration configuration)
         {
             var connectionString = configuration["MongoConnectionString"];
             client = new MongoClient(connectionString);
             database = client.GetDatabase("OperaiteDB");
+            usersCollection = database.GetCollection<User>("Users");
+            teamsCollection = database.GetCollection<Team>("Teams");
         }
 
-        public async Task AddUserAsync(User user)
-        {
-            var users = database.GetCollection<User>("Users");
-            await users.InsertOneAsync(user);
-        }
+        public async Task AddUserAsync(User user) { await usersCollection.InsertOneAsync(user); }
 
-        public async Task<List<User>> GetAllUsers()
+        public async Task<List<User>> GetAllUsersAsync()
         {
-            var users = (await database.GetCollection<User>("Users").FindAsync(user => true)).ToList();
+            var users = (await usersCollection.FindAsync(user => true)).ToList();
             return users;
+        }
+
+        public async Task AddTeamAsync(Team team) { await teamsCollection.InsertOneAsync(team); }
+
+        public async Task <List<Team>> GetAllTeamsAsync() 
+        { 
+            var teams = (await teamsCollection.FindAsync(team => true)).ToList();
+            return teams;
         }
 
     }

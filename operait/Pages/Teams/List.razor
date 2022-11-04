@@ -1,4 +1,5 @@
 ﻿@page "/teams/list"
+@using operait.Documents
 <Container>
     <Bar Breakpoint="Breakpoint.Desktop"
          Background="Background.Light"
@@ -10,7 +11,7 @@
             </BarStart>
             <BarEnd>
                 <BarItem>
-                    <Button Color="Color.Primary">Add Team</Button>
+                    <Button Color="Color.Primary" Clicked="@ShowAddTeam">Add Team</Button>
                 </BarItem>
             </BarEnd>
         </BarMenu>
@@ -29,6 +30,39 @@
     </Row>
 </Container>
 
-@code {
+<Modal @ref="addTeamRef">
+    <ModalContent Centered>
+        <ModalHeader>
+            <ModalTitle>Add team</ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+                <Field>
+                    <FieldLabel>Name</FieldLabel>
+                    <TextEdit @bind-Text="name"  />
+                </Field>
+                <Field>
+                    <FieldLabel>Description</FieldLabel>
+                    <TextEdit @bind-Text="description"  />
+                </Field>
+                <Field>
+                    <FieldLabel>Add members</FieldLabel>
+                    <Autocomplete TItem="User"
+                        TValue="string"
+                        Data="@allUsers"
+                        TextField="@(( item ) => item.Name)"
+                        ValueField="@(( item ) => item.Id)"
+                        Placeholder="Search"
+                        Filter="AutocompleteFilter.Contains"
+                        SelectedValueChanged="SelectedUserChanged">
 
-}
+                    </Autocomplete>
+                </Field>
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Secondary" Clicked="@HideAddTeam">Cancel</Button>
+            <Button Color="Color.Primary" Clicked="@AddTeamAsync">Add</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+

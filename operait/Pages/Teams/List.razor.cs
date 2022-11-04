@@ -14,55 +14,60 @@ using Microsoft.JSInterop;
 using operait;
 using operait.Shared;
 using Blazorise;
+using Blazorise.DataGrid;
 using operait.Services;
 using operait.Documents;
-using Blazorise.DataGrid;
 
-namespace operait.Pages.Settings.User
+namespace operait.Pages.Teams
 {
-    public partial class Users
+
+    public partial class List
     {
-        private Modal? addUserRef;
+        private Modal? addTeamRef;
+        private string name;
+        private string description;
+        private List<User> addedUsers;
+        private List<User> allUsers;
+        private string selectedUserId;
 
-        private string? email;
-
-        private string? name;
-        private List<operait.Documents.User> userList { get; set; } = new List<Documents.User> { };
-
-        private operait.Documents.User selectedUser;
 
         [Inject]
         protected DatabaseService DatabaseService { get; set; }
 
-        private Task ShowAddUser()
+        private Task ShowAddTeam()
         {
-            return addUserRef.Show();
+            return addTeamRef.Show();
         }
 
-        private Task HideAddUser()
+        private Task HideAddTeam()
         {
-            return addUserRef.Hide();
+            return addTeamRef.Hide();
+
         }
 
-        private async Task AddUserAsync()
+        private async Task AddTeamAsync()
         {
-            var newUser = new operait.Documents.User
+            var newTeam = new operait.Documents.Team
             {
-                Email = email,
-                Name = name
+                Name = name,
+                Description = description,
+                Users = addedUsers.Select(x => x.Id).ToList(),
             };
-            await DatabaseService.AddUserAsync(newUser);
+            await DatabaseService.AddTeamAsync(newTeam);
         }
 
         protected override async Task OnInitializedAsync()
         {
             var res = await DatabaseService.GetAllUsersAsync();
-            userList = res;
+            allUsers = res;
         }
 
-        void UserUpdated(operait.Documents.User user)
+        void SelectedUserChanged(string userId)
         {
+            if (userId != null)
+            {
 
+            }
         }
 
     }
