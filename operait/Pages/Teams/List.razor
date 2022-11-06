@@ -28,6 +28,26 @@
             </Addons>
         </Column>
     </Row>
+    <DataGrid TItem="operait.Documents.Team"
+              Data="@teamList"
+              Responsive Editable 
+              EditMode="DataGridEditMode.Popup" ShowPager 
+              CommandMode="DataGridCommandMode.Commands" 
+              RowUpdated="(a) => TeamUpdated(a.Item)"
+              SelectedRow="@selectedTeam"
+              SelectedRowChanged="TeamSelected">
+        <DataGridColumns>
+            <DataGridColumn Field="@nameof(operait.Documents.Team.Name)" Caption="Name" Editable />
+            <DataGridColumn Field="@nameof(operait.Documents.Team.Description)" Caption="Description" Editable />
+            <DataGridCommandColumn>
+                <EditCommandTemplate>
+                    <Button Color="Color.Primary" Clicked="@context.Clicked">Edit</Button>
+                </EditCommandTemplate>
+                <NewCommandTemplate/>
+            </DataGridCommandColumn>
+        </DataGridColumns>
+    </DataGrid>
+
 </Container>
 
 <Modal @ref="addTeamRef">
@@ -45,13 +65,26 @@
                     <FieldLabel>Description</FieldLabel>
                     <TextEdit @bind-Text="description"  />
                 </Field>
-                <Field>
+                <Field >
                     <FieldLabel>Add members</FieldLabel>
-                    <Autocomplete TItem="User"
-                        TValue="string"
+                    <Repeater Items="@addedUsers">
+                    <Fields Class="border border-1 shadow-sm m-0 p-1">
+                            <Field Class="m-0">
+                                <Text>@context.Name</Text>
+                            </Field>
+                            <Field Class="m-0">
+                                <Select TValue="string">
+                                <SelectItem>Admin</SelectItem>
+                                <SelectItem>User</SelectItem>
+                            </Select>
+                            </Field>
+                        </Fields>
+                    </Repeater>
+                    <Autocomplete TItem="User" Class="mt-2"
+                        TValue="User"
                         Data="@allUsers"
                         TextField="@(( item ) => item.Name)"
-                        ValueField="@(( item ) => item.Id)"
+                        ValueField="@(( item ) => item)"
                         Placeholder="Search"
                         Filter="AutocompleteFilter.Contains"
                         SelectedValueChanged="SelectedUserChanged">

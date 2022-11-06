@@ -26,10 +26,12 @@ namespace operait.Pages.Teams
         private Modal? addTeamRef;
         private string name;
         private string description;
-        private List<User> addedUsers;
+        private List<User> addedUsers = new List<User>();
         private List<User> allUsers;
         private string selectedUserId;
 
+        private List<Team> teamList;
+        private Team selectedTeam;
 
         [Inject]
         protected DatabaseService DatabaseService { get; set; }
@@ -54,21 +56,35 @@ namespace operait.Pages.Teams
                 Users = addedUsers.Select(x => x.Id).ToList(),
             };
             await DatabaseService.AddTeamAsync(newTeam);
+            await addTeamRef.Hide();
         }
 
         protected override async Task OnInitializedAsync()
         {
             var res = await DatabaseService.GetAllUsersAsync();
             allUsers = res;
+            var teams = await DatabaseService.GetAllTeamsAsync();
+            teamList = teams;
         }
 
-        void SelectedUserChanged(string userId)
+        void SelectedUserChanged(User user)
         {
-            if (userId != null)
+            if (user != null)
             {
-
+                addedUsers.Add(user);
             }
         }
+
+        void TeamUpdated(Team team)
+        {
+
+        }
+
+        void TeamSelected(Team team)
+        {
+            selectedTeam = team;
+        }
+        
 
     }
 }
