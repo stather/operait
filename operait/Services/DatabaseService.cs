@@ -35,5 +35,11 @@ namespace operait.Services
             return teams;
         }
 
+        public async Task<Team> GetTeamAsync(string id)
+        {
+            var team = (await teamsCollection.FindAsync(x => x.Id == id)).FirstOrDefault();
+            return team;
+        }
+
     }
 }

@@ -1,0 +1,15 @@
+﻿@page "/teams/oncall/{teamId}"
+
+@layout TeamLayout
+
+<Container>
+    <Breadcrumb>
+        <BreadcrumbItem>
+            <BreadcrumbLink To="/teams/list">Teams</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbItem>
+            <BreadcrumbLink To="@($"/teams/oncall/{team?.Id}")">@team?.Name</BreadcrumbLink>
+        </BreadcrumbItem>
+    </Breadcrumb>
+    <Divider/>
+</Container>

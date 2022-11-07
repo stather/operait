@@ -1,0 +1,62 @@
+﻿@inherits LayoutComponentBase
+
+<PageTitle>operait</PageTitle>
+
+<Layout>
+    <TopMenu />
+    <Layout Sider>
+        <LayoutSider>
+            <LayoutSiderContent>
+                <Bar Mode="BarMode.VerticalInline"
+                     CollapseMode="BarCollapseMode.Small"
+                     Breakpoint="Breakpoint.Desktop"
+                     NavigationBreakpoint="Breakpoint.Tablet"
+                     ThemeContrast="ThemeContrast.Dark">
+                    <BarMenu>
+                        <BarStart>
+                            <BarItem>
+                                <BarLink>On-call</BarLink>
+                            </BarItem>
+                            <BarItem>
+                                <BarLink>Integrations</BarLink>
+                            </BarItem>
+                            <BarItem>
+                                <BarLink>Heartbeats</BarLink>
+                            </BarItem>
+                            <BarItem>
+                                <BarLink>Services</BarLink>
+                            </BarItem>
+                            <BarItem>
+                                <BarLink>Incident rules</BarLink>
+                            </BarItem>
+                            <BarItem>
+                                <BarLink>Members</BarLink>
+                            </BarItem>
+                            <BarItem>
+                                <BarLink>Roles</BarLink>
+                            </BarItem>
+                            <BarItem>
+                                <BarLink>Policies</BarLink>
+                            </BarItem>
+                            <BarItem>
+                                <BarLink>Conferences</BarLink>
+                            </BarItem>
+                            <BarItem>
+                                <BarLink>Activity stream</BarLink>
+                            </BarItem>
+                            <BarItem>
+                                <BarLink>Actions</BarLink>
+                            </BarItem>
+                        </BarStart>
+                    </BarMenu>
+                </Bar>
+            </LayoutSiderContent>
+        </LayoutSider>
+        <Layout>
+            <LayoutContent>
+                @Body
+            </LayoutContent>
+        </Layout>
+    </Layout>
+
+</Layout>

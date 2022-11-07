@@ -34,6 +34,9 @@ namespace operait.Pages.Teams
         private Team selectedTeam;
 
         [Inject]
+        private NavigationManager navigationManager { get; set; }
+
+        [Inject]
         protected DatabaseService DatabaseService { get; set; }
 
         private Task ShowAddTeam()
@@ -83,6 +86,7 @@ namespace operait.Pages.Teams
         void TeamSelected(Team team)
         {
             selectedTeam = team;
+            navigationManager.NavigateTo("/teams/oncall/" + team.Id);
         }
         
 
