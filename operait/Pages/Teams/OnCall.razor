@@ -130,7 +130,7 @@
 
 
 <Modal @ref="@addRoutingRuleRef">
-    <ModalContent Centered>
+    <ModalContent Centered Size="ModalSize.Large">
         <ModalHeader>
             <ModalTitle>Add routing rule</ModalTitle>
             <CloseButton/>
@@ -180,7 +180,10 @@
                     </Field>
                 </Fields>
                 </Repeater>
-                }
+                <Field>
+                    <Button Clicked="AddCondition">+ Add new condition</Button>
+                </Field>
+            }
             <Field>
                 <Switch TValue="bool">Restrict to time intervals</Switch>
             </Field>
@@ -203,5 +206,9 @@
                 </Select>
             </Field>
         </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Secondary" Clicked="@CloseAddRouting">Cancel</Button>
+            <Button Color="Color.Primary" Clicked="@CloseAddRouting">Add</Button>
+        </ModalFooter>
     </ModalContent>
 </Modal>

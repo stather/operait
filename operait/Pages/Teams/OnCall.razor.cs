@@ -51,6 +51,11 @@ namespace operait.Pages.Teams
             return addRoutingRuleRef.Show();
         }
 
+        Task CloseAddRouting()
+        {
+            return addRoutingRuleRef.Hide();
+        }
+
         void AddEscalation()
         {
 
@@ -59,6 +64,11 @@ namespace operait.Pages.Teams
         void AddSchedule()
         {
 
+        }
+
+        void AddCondition()
+        {
+            AddedConditions.Add(new RoutingCondition { Item = RoutingItem.Actions, Key = "", NotCondition = false, Operator = ConditionOperator.Regex, Value = "" });
         }
     }
 }
