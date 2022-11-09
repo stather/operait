@@ -23,6 +23,12 @@ namespace operait.Pages.Teams
 {
     public partial class OnCall
     {
+        private Modal? addRoutingRuleRef;
+        private string routingRuleName;
+        private operait.Documents.RoutingMatch RoutingMatchSelected;
+        private List<RoutingCondition> AddedConditions = new List<RoutingCondition> { new RoutingCondition{ Item = RoutingItem.Actions,  Key = "",  NotCondition = false, Operator = ConditionOperator.Regex, Value = "" } };
+        private RoutingItem RoutingItemSelected;
+
         [Parameter]
         public string teamId { get; set; }
         private Team? team;
@@ -33,6 +39,26 @@ namespace operait.Pages.Teams
         protected override async Task OnInitializedAsync()
         {
             team = await DatabaseService.GetTeamAsync(teamId);
+        }
+
+        void SaveView()
+        {
+
+        }
+
+        Task ShowAddRoutingRule()
+        {
+            return addRoutingRuleRef.Show();
+        }
+
+        void AddEscalation()
+        {
+
+        }
+
+        void AddSchedule()
+        {
+
         }
     }
 }

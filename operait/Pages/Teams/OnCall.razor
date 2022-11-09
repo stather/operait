@@ -1,4 +1,5 @@
 ﻿@page "/teams/oncall/{teamId}"
+@using operait.Documents
 
 @layout TeamLayout
 
@@ -12,4 +13,195 @@
         </BreadcrumbItem>
     </Breadcrumb>
     <Divider/>
+    <Bar Breakpoint="Breakpoint.Desktop"
+         Background="Background.Light"
+         ThemeContrast="ThemeContrast.Light">
+        <BarBrand>On-call</BarBrand>
+        <BarMenu>
+            <BarStart>
+
+            </BarStart>
+            <BarEnd>
+                <BarItem>
+                    <Button Color="Color.Secondary" Clicked="@SaveView">Save view</Button>
+                </BarItem>
+            </BarEnd>
+        </BarMenu>
+    </Bar>
+    <Divider />
+    <Bar Breakpoint="Breakpoint.Desktop"
+         Background="Background.Light"
+         ThemeContrast="ThemeContrast.Light">
+        <BarBrand>Routing rules</BarBrand>
+        <BarMenu>
+            <BarStart>
+
+            </BarStart>
+            <BarEnd>
+                <BarItem>
+                    <Button Color="Color.Secondary" Clicked="@ShowAddRoutingRule">Add routing rule</Button>
+                </BarItem>
+                <BarItem>
+                    <BarDropdown>
+                        <BarDropdownToggle Color="Color.Secondary">
+                            ...
+                        </BarDropdownToggle>
+                        <BarDropdownMenu>
+                            <BarDropdownItem>Collapse</BarDropdownItem>
+                        </BarDropdownMenu>
+                    </BarDropdown>
+                </BarItem>
+
+            </BarEnd>
+        </BarMenu>
+    </Bar>
+    <Text>Route alerts to</Text>
+    <Select TValue="string">
+        <SelectGroup Label="OTHER">
+            <SelectItem>No one</SelectItem>
+        </SelectGroup>
+        <SelectGroup Label="ESCALATION(S)">
+            <Repeater Items="@team?.EscalationPolicies">
+                <SelectItem>@context.Name</SelectItem>
+            </Repeater>
+        </SelectGroup>
+        <SelectGroup Label="SCHEDULE(S)">
+            <Repeater Items="@team?.Schedules">
+                <SelectItem>@context.Name</SelectItem>
+            </Repeater>
+        </SelectGroup>
+    </Select>
+    <Divider />
+    <Bar Breakpoint="Breakpoint.Desktop"
+         Background="Background.Light"
+         ThemeContrast="ThemeContrast.Light">
+        <BarBrand>Escalation policies</BarBrand>
+        <BarMenu>
+            <BarStart>
+
+            </BarStart>
+            <BarEnd>
+                <BarItem>
+                    <Button Color="Color.Secondary" Clicked="@AddEscalation">Add escalation</Button>
+                </BarItem>
+                <BarItem>
+                    <BarDropdown>
+                        <BarDropdownToggle Color="Color.Secondary">
+                            ...
+                        </BarDropdownToggle>
+                        <BarDropdownMenu>
+                            <BarDropdownItem>Collapse</BarDropdownItem>
+                        </BarDropdownMenu>
+                    </BarDropdown>
+                </BarItem>
+
+            </BarEnd>
+        </BarMenu>
+    </Bar>
+    <Divider />
+    <Bar Breakpoint="Breakpoint.Desktop"
+         Background="Background.Light"
+         ThemeContrast="ThemeContrast.Light">
+        <BarBrand>On-call schedules</BarBrand>
+        <BarMenu>
+            <BarStart>
+
+            </BarStart>
+            <BarEnd>
+                <BarItem>
+                    <Button Color="Color.Secondary" Clicked="@AddSchedule">Add schedule</Button>
+                </BarItem>
+                <BarItem>
+                    <BarDropdown>
+                        <BarDropdownToggle Color="Color.Secondary">
+                            ...
+                        </BarDropdownToggle>
+                        <BarDropdownMenu>
+                            <BarDropdownItem>Collapse</BarDropdownItem>
+                        </BarDropdownMenu>
+                    </BarDropdown>
+                </BarItem>
+
+            </BarEnd>
+        </BarMenu>
+    </Bar>
 </Container>
+
+
+
+<Modal @ref="@addRoutingRuleRef">
+    <ModalContent Centered>
+        <ModalHeader>
+            <ModalTitle>Add routing rule</ModalTitle>
+            <CloseButton/>
+        </ModalHeader>
+        <ModalBody>
+            <Field>
+                <FieldLabel>Name</FieldLabel>
+                <TextEdit @bind-Text="routingRuleName" />
+            </Field>
+            <Field>
+                <FieldLabel>If the following conditions are met</FieldLabel>
+                <Select TValue="operait.Documents.RoutingMatch" @bind-SelectedValue="@RoutingMatchSelected">
+                    <SelectItem Value="@(operait.Documents.RoutingMatch.AllAlerts)">Match all alerts</SelectItem>
+                    <SelectItem Value="@(operait.Documents.RoutingMatch.OneOrMoreConditions)">Match one or more conditions below</SelectItem>
+                    <SelectItem Value="@(operait.Documents.RoutingMatch.AllConditions)">Match all conditions below</SelectItem>
+                </Select>
+            </Field>
+                @if (RoutingMatchSelected != operait.Documents.RoutingMatch.AllAlerts)
+                {
+                <Repeater Items="AddedConditions">
+                    <Fields>
+                    <Field>
+                            <Select TValue="RoutingItem" @bind-SelectedValue="@(context.Item)">
+                                <Repeater Context="c2" Items="@((RoutingItem[])(Enum.GetValues(typeof(RoutingItem))))">
+                                <SelectItem Value="@c2">@c2.ToString()</SelectItem>
+                                </Repeater>
+                            </Select>
+                    </Field>
+                    <Field>
+                            <Select TValue="bool" @bind-SelectedValue="@(context.NotCondition)">
+                            <SelectItem Value="false">--</SelectItem>
+                            <SelectItem Value="true">NOT</SelectItem>
+                        </Select>
+                    </Field>
+                    <Field>
+                            <Select TValue="ConditionOperator" @bind-SelectedValue="@(context.Operator)">
+                            <Repeater Context="c3" Items="@(RoutingCondition.AllowedOperators[context.Item])">
+                                <SelectItem Value="c3">@c3.ToString()</SelectItem>
+                            </Repeater>
+                        </Select>
+                    </Field>
+                    <Field>
+                        <TextEdit></TextEdit>
+                    </Field>
+                    <Field>
+                        <Button>X</Button>
+                    </Field>
+                </Fields>
+                </Repeater>
+                }
+            <Field>
+                <Switch TValue="bool">Restrict to time intervals</Switch>
+            </Field>
+            <Field>
+                <FieldLabel>Then route using escalation/schedule</FieldLabel>
+                <Select TValue="string">
+                    <SelectGroup Label="OTHER">
+                        <SelectItem>No one</SelectItem>
+                    </SelectGroup>
+                    <SelectGroup Label="ESCALATION(S)">
+                        <Repeater Items="@team?.EscalationPolicies">
+                            <SelectItem>@context.Name</SelectItem>
+                        </Repeater>
+                    </SelectGroup>
+                    <SelectGroup Label="SCHEDULE(S)">
+                        <Repeater Items="@team?.Schedules">
+                            <SelectItem>@context.Name</SelectItem>
+                        </Repeater>
+                    </SelectGroup>
+                </Select>
+            </Field>
+        </ModalBody>
+    </ModalContent>
+</Modal>
