@@ -59,6 +59,8 @@ namespace operait.Pages.Teams
                 Users = addedUsers.Select(x => x.Id).ToList(),
             };
             await DatabaseService.AddTeamAsync(newTeam);
+            var teams = await DatabaseService.GetAllTeamsAsync();
+            teamList = teams;
             await addTeamRef.Hide();
         }
 

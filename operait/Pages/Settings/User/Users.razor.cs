@@ -52,6 +52,9 @@ namespace operait.Pages.Settings.User
                 Name = name
             };
             await DatabaseService.AddUserAsync(newUser);
+            var res = await DatabaseService.GetAllUsersAsync();
+            userList = res;
+            await addUserRef.Hide();
         }
 
         protected override async Task OnInitializedAsync()
