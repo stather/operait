@@ -28,7 +28,11 @@ namespace operait.Pages.Teams
         private operait.Documents.RoutingMatch RoutingMatchSelected;
         private List<RoutingCondition> AddedConditions = new List<RoutingCondition> { new RoutingCondition{ Item = RoutingItem.Actions,  Key = "",  NotCondition = false, Operator = ConditionOperator.Regex, Value = "" } };
         private RoutingItem RoutingItemSelected;
-
+        private bool restrictIntervals;
+        private TimeIntervalRestriction RestrictionType;
+        private TimeSpan startTime;
+        private TimeSpan endTime;
+        private List<ShiftInterval> intervals = new List<ShiftInterval> { new ShiftInterval {FromDay = DayOfWeek.Monday, FromTime = DateTime.Parse("00:00"), ToDay = DayOfWeek.Monday, ToTime = DateTime.Parse("00:00") } };
         [Parameter]
         public string teamId { get; set; }
         private Team? team;
@@ -69,6 +73,22 @@ namespace operait.Pages.Teams
         void AddCondition()
         {
             AddedConditions.Add(new RoutingCondition { Item = RoutingItem.Actions, Key = "", NotCondition = false, Operator = ConditionOperator.Regex, Value = "" });
+        }
+
+        Task StartTimeChanged(TimeSpan t)
+        {
+            startTime = t;
+            return Task.CompletedTask;
+        }
+        Task EndTimeChanged(TimeSpan t)
+        {
+            endTime = t;
+            return Task.CompletedTask;
+        }
+
+        void AddNewInterval()
+        {
+            intervals.Add(new ShiftInterval { FromDay = DayOfWeek.Monday, FromTime = DateTime.Parse("00:00"), ToDay = DayOfWeek.Monday, ToTime = DateTime.Parse("00:00") });
         }
     }
 }

@@ -185,8 +185,69 @@
                 </Field>
             }
             <Field>
-                <Switch TValue="bool">Restrict to time intervals</Switch>
+                <Switch TValue="bool" @bind-Checked=@(restrictIntervals)>Restrict to time intervals</Switch>
             </Field>
+            @if (restrictIntervals)
+            {
+                <Field>
+                    <RadioGroup TValue="TimeIntervalRestriction" @bind-CheckedValue="@(RestrictionType)">
+                        <Radio Value="@(TimeIntervalRestriction.TimeOfDay)">Time of day</Radio>
+                        <Radio Value="@(TimeIntervalRestriction.WeekdayAndTimeOfDay)">Weekday and time of day</Radio>
+                    </RadioGroup>
+                </Field>
+                @if (RestrictionType == TimeIntervalRestriction.TimeOfDay)
+                {
+                    <Fields>
+                        <Field>
+                            <FieldLabel>Start time</FieldLabel>
+                            <TimePicker TimeAs24hr="@true" TValue="TimeSpan" Time="@startTime" TimeChanged="@StartTimeChanged" />
+                        </Field>
+                        <Field>
+                            <FieldLabel>End time</FieldLabel>
+                            <TimePicker TimeAs24hr="@true" TValue="TimeSpan" Time="@endTime" TimeChanged="@EndTimeChanged" />
+                        </Field>
+                    </Fields>
+                }
+                @if (RestrictionType == TimeIntervalRestriction.WeekdayAndTimeOfDay)
+                {
+                    <Repeater Context="c4" Items="intervals">
+                        <Fields>
+                            <Field>
+                                <Select TValue="DayOfWeek" @bind-SelectedValue="@(c4.FromDay)">
+                                    <SelectItem Value="@(DayOfWeek.Monday)">Monday</SelectItem>
+                                    <SelectItem Value="@(DayOfWeek.Tuesday)">Tuesday</SelectItem>
+                                    <SelectItem Value="@(DayOfWeek.Wednesday)">Wednesday</SelectItem>
+                                    <SelectItem Value="@(DayOfWeek.Thursday)">Thursday</SelectItem>
+                                    <SelectItem Value="@(DayOfWeek.Friday)">Friday</SelectItem>
+                                    <SelectItem Value="@(DayOfWeek.Saturday)">Saturday</SelectItem>
+                                    <SelectItem Value="@(DayOfWeek.Sunday)">Sunday</SelectItem>
+                                </Select>
+                            </Field>
+                            <Field>
+                                <TimePicker TimeAs24hr="@true" TValue="DateTime" Time="@(c4.FromTime)" TimeChanged="@((t) => c4.FromTime = t)" />
+                            </Field>
+                            <Field>
+                                <Select TValue="DayOfWeek" @bind-SelectedValue="@(c4.ToDay)">
+                                        <SelectItem Value="@(DayOfWeek.Monday)">Monday</SelectItem>
+                                            <SelectItem Value="@(DayOfWeek.Tuesday)">Tuesday</SelectItem>
+                                            <SelectItem Value="@(DayOfWeek.Wednesday)">Wednesday</SelectItem>
+                                            <SelectItem Value="@(DayOfWeek.Thursday)">Thursday</SelectItem>
+                                            <SelectItem Value="@(DayOfWeek.Friday)">Friday</SelectItem>
+                                            <SelectItem Value="@(DayOfWeek.Saturday)">Saturday</SelectItem>
+                                            <SelectItem Value="@(DayOfWeek.Sunday)">Sunday</SelectItem>
+                                        </Select>
+                                    </Field>
+                                    <Field>
+                                        <TimePicker TimeAs24hr="@true" TValue="DateTime" Time="@(c4.ToTime)" TimeChanged="@((t) => c4.ToTime = t)" />
+                                    </Field>
+                                    <Field>
+                                        <Button>X</Button>
+                                    </Field>
+                                </Fields>
+                    </Repeater>
+                    <Button Clicked="@AddNewInterval">+ Add new interval</Button>
+                }
+            }
             <Field>
                 <FieldLabel>Then route using escalation/schedule</FieldLabel>
                 <Select TValue="string">
