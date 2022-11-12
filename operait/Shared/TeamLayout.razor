@@ -1,4 +1,7 @@
-﻿@inherits LayoutComponentBase
+﻿@using FeatureHubSDK;
+@inherits LayoutComponentBase
+
+@inject IFeatureHubConfig config
 
 <PageTitle>operait</PageTitle>
 
@@ -38,9 +41,12 @@
                             <BarItem>
                                 <BarLink>Policies</BarLink>
                             </BarItem>
-                            <BarItem>
-                                <BarLink>Conferences</BarLink>
-                            </BarItem>
+                            @if (config.Repository.IsEnabled("conferences"))
+                            {
+                                <BarItem>
+                                    <BarLink>Conferences</BarLink>
+                                </BarItem>
+                            }
                             <BarItem>
                                 <BarLink>Activity stream</BarLink>
                             </BarItem>
