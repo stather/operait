@@ -13,7 +13,6 @@ namespace operait.Services
 
         public DatabaseService(IConfiguration configuration, IFeatureHubConfig config)
         {
-            //var connectionString = configuration["MongoConnectionString"];
             var connectionString = config.Repository.GetFeature("MongoConnectionString").StringValue;
             client = new MongoClient(connectionString);
             database = client.GetDatabase("OperaiteDB");

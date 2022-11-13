@@ -23,36 +23,47 @@
                             <BarItem>
                                 <BarLink>Integrations</BarLink>
                             </BarItem>
-                            <BarItem>
-                                <BarLink>Heartbeats</BarLink>
-                            </BarItem>
-                            <BarItem>
-                                <BarLink>Services</BarLink>
-                            </BarItem>
-                            <BarItem>
-                                <BarLink>Incident rules</BarLink>
-                            </BarItem>
+                            <FeatureHubFlag Feature="heartbeats">
+                                <BarItem>
+                                    <BarLink>Heartbeats</BarLink>
+                                </BarItem>
+                            </FeatureHubFlag>
+                            <FeatureHubFlag Feature="services">
+                                <BarItem>
+                                    <BarLink>Services</BarLink>
+                                </BarItem>
+                            </FeatureHubFlag>
+                            <FeatureHubFlag Feature="incidentrules">
+                                <BarItem>
+                                    <BarLink>Incident rules</BarLink>
+                                </BarItem>
+                            </FeatureHubFlag>
                             <BarItem>
                                 <BarLink>Members</BarLink>
                             </BarItem>
-                            <BarItem>
-                                <BarLink>Roles</BarLink>
-                            </BarItem>
-                            <BarItem>
-                                <BarLink>Policies</BarLink>
-                            </BarItem>
-                            @if (config.Repository.IsEnabled("conferences"))
-                            {
+                            <FeatureHubFlag Feature="roles>">
+                                <BarItem>
+                                    <BarLink>Roles</BarLink>
+                                </BarItem>
+                            </FeatureHubFlag>
+                            <FeatureHubFlag Feature="policies">
+                                <BarItem>
+                                    <BarLink>Policies</BarLink>
+                                </BarItem>
+                            </FeatureHubFlag>
+                            <FeatureHubFlag Feature="conferences">
                                 <BarItem>
                                     <BarLink>Conferences</BarLink>
                                 </BarItem>
-                            }
+                            </FeatureHubFlag>
                             <BarItem>
                                 <BarLink>Activity stream</BarLink>
                             </BarItem>
-                            <BarItem>
-                                <BarLink>Actions</BarLink>
-                            </BarItem>
+                            <FeatureHubFlag Feature="actions">
+                                <BarItem>
+                                    <BarLink>Actions</BarLink>
+                                </BarItem>
+                            </FeatureHubFlag>
                         </BarStart>
                     </BarMenu>
                 </Bar>

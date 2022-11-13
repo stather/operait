@@ -1,0 +1,22 @@
+﻿@using FeatureHubSDK;
+@inject IFeatureHubConfig config
+
+@if (enabled)
+{
+    @ChildContent
+}
+
+@code {
+    [Parameter]
+    public string? Feature { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private bool enabled = true;
+
+    protected override void OnInitialized()
+    {
+        enabled = config.Repository.IsEnabled(Feature);
+    }
+}
