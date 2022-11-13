@@ -9,7 +9,7 @@ namespace operait
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -27,12 +27,22 @@ namespace operait
 
             builder.Services.AddSingleton<DatabaseService>();
 
-            IFeatureHubConfig config = new EdgeFeatureHubConfig("http://192.168.0.117:8085/", "6b0617b2-cc9b-4846-b9ad-b80c131851c8/kTqupKKcN3Y7kGLGDFAfBv4MXdVkn7*EtBXtwVL2dFGmNVKvkvJ");
-            builder.Services.Add(ServiceDescriptor.Singleton(typeof(IFeatureHubConfig), config));
-            config.Init();
+            builder.Services.AddSingleton<IFeatureHubConfig>((sp) =>
+            {
+                var iConfiguration = sp.GetService<IConfiguration>();
+                var featureHubEdgeUrl = iConfiguration["FeatureHubEdgeUrl"];
+                var featureHubApiKey = iConfiguration["FeatureHubApiKey"];
+                IFeatureHubConfig config = new EdgeFeatureHubConfig(featureHubEdgeUrl, featureHubApiKey);
+                config.Init();
+                return config;
+            });
 
             var app = builder.Build();
-
+            var ifh = app.Services.GetService<IFeatureHubConfig>();
+            while (ifh.Readyness != Readyness.Ready)
+            {
+                await Task.Delay(100);
+            }
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {

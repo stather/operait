@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using FeatureHubSDK;
+using MongoDB.Driver;
 using operait.Documents;
 
 namespace operait.Services
@@ -10,9 +11,10 @@ namespace operait.Services
         private IMongoCollection<User> usersCollection;
         private IMongoCollection<Team> teamsCollection;
 
-        public DatabaseService(IConfiguration configuration)
+        public DatabaseService(IConfiguration configuration, IFeatureHubConfig config)
         {
-            var connectionString = configuration["MongoConnectionString"];
+            //var connectionString = configuration["MongoConnectionString"];
+            var connectionString = config.Repository.GetFeature("MongoConnectionString").StringValue;
             client = new MongoClient(connectionString);
             database = client.GetDatabase("OperaiteDB");
             usersCollection = database.GetCollection<User>("Users");
