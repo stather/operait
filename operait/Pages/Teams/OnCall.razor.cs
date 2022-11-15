@@ -37,6 +37,9 @@ namespace operait.Pages.Teams
         public string teamId { get; set; }
         private Team? team;
 
+        private Modal? addScheduleRef;
+        private string scheduleName;
+
         [Inject]
         protected DatabaseService DatabaseService { get; set; }
 
@@ -65,7 +68,7 @@ namespace operait.Pages.Teams
 
         }
 
-        void AddSchedule()
+        void ShowAddSchedule()
         {
 
         }

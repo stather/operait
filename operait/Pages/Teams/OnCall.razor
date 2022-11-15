@@ -109,7 +109,7 @@
             </BarStart>
             <BarEnd>
                 <BarItem>
-                    <Button Color="Color.Secondary" Clicked="@AddSchedule">Add schedule</Button>
+                    <Button Color="Color.Secondary" Clicked="@ShowAddSchedule">Add schedule</Button>
                 </BarItem>
                 <BarItem>
                     <BarDropdown>
@@ -271,5 +271,22 @@
             <Button Color="Color.Secondary" Clicked="@CloseAddRouting">Cancel</Button>
             <Button Color="Color.Primary" Clicked="@CloseAddRouting">Add</Button>
         </ModalFooter>
+    </ModalContent>
+</Modal>
+
+
+<Modal @ref="addScheduleRef">
+    <ModalContent Centered>
+        <ModalHeader>
+            <ModalTitle>Add schedule</ModalTitle>
+            <CloseButton/>
+        </ModalHeader>
+        <ModalBody>
+            <Field>
+                <FieldLabel>Name</FieldLabel>
+                <TextEdit @bind-Text="@scheduleName"></TextEdit>
+            </Field>
+            <Field></Field>
+        </ModalBody>
     </ModalContent>
 </Modal>
