@@ -23,9 +23,21 @@ namespace operait.Pages.Alerts
 {
     public partial class List
     {
+        private Modal? createAlertRef;
+
         private Task ShowCreateAlert()
         {
-            return Task.CompletedTask;
+            return createAlertRef.Show();
+        }
+
+        private Task HideCreateAlert()
+        {
+            return createAlertRef.Hide();
+        }
+
+        private Task CreateAlert()
+        {
+            return createAlertRef.Hide();
         }
     }
 }

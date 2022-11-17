@@ -136,3 +136,45 @@
 </Container>
 
 
+<Modal @ref="createAlertRef">
+    <ModalContent>
+                <ModalHeader>
+            <ModalTitle>Create alert</ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+            <Field>
+                <FieldLabel>API integration</FieldLabel>
+                <Select TValue="string">
+                    <SelectItem Value="@("DefaultApi")">Default API</SelectItem>
+                </Select>
+            </Field>
+            <Field>
+                <FieldLabel>Alert message</FieldLabel>
+                <MemoEdit></MemoEdit>
+            </Field>
+            <Field>
+                <FieldLabel>Priority</FieldLabel>
+                <Select TValue="AlertPriority">
+                    <SelectItem Value="@(AlertPriority.P1_Critical)">P1-Critical</SelectItem>
+                    <SelectItem Value="@(AlertPriority.P2_High)">P2-High</SelectItem>
+                    <SelectItem Value="@(AlertPriority.P3_Moderate)">P3-Moderate</SelectItem>
+                    <SelectItem Value="@(AlertPriority.P4_Low)">P4-Low</SelectItem>
+                    <SelectItem Value="@(AlertPriority.P5_Informational)">P5-Informational</SelectItem>
+                </Select>
+            </Field>
+            <Field>
+                <FieldLabel>Responders</FieldLabel>
+                <TextEdit></TextEdit>
+            </Field>
+            <Field>
+                <FieldLabel>Tags</FieldLabel>
+                <TextEdit></TextEdit>
+            </Field>
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Secondary" Clicked="@HideCreateAlert">Cancel</Button>
+            <Button Color="Color.Primary" Clicked="@CreateAlert">Create</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>

@@ -51,11 +51,26 @@ namespace operait.Documents
         public string Who { get; set; }
         public string Description { get; set; }
     }
+
+    public enum ResponderStateValues
+    {
+        Notified,
+        Seen,
+        Action
+    }
+    public class ResponderState
+    {
+        public DateTime Timestamp { get; set; }
+        public string Who { get; set; }
+        public ResponderStateValues State { get; set; }
+
+    }
     public class Alert
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
+        public string Alias { get; set; }
 
         public string ApiIntegrationId { get; set; }
 
@@ -87,6 +102,6 @@ namespace operait.Documents
 
         public List<Activity> Activities { get; set; } = new List<Activity>();
 
-
+        public List<ResponderState> ResponderStates { get; set; } = new List<ResponderState>();
     }
 }
