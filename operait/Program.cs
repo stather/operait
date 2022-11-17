@@ -2,7 +2,6 @@ using Blazorise;
 using Blazorise.Bootstrap5;
 using Blazorise.Icons.FontAwesome;
 using FeatureHubSDK;
-using operait.Data;
 using operait.Services;
 
 namespace operait

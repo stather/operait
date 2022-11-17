@@ -1,8 +1,138 @@
 ﻿@page "/alert/list"
 @page "/"
 
-<h3>List</h3>
+@using operait.Documents
+<Container>
+    <Bar Breakpoint="Breakpoint.Desktop"
+         Background="Background.Light"
+         ThemeContrast="ThemeContrast.Light">
+        <BarBrand>Alerts</BarBrand>
+        <BarMenu>
+            <BarStart>
 
-@code {
+            </BarStart>
+            <BarEnd>
+                <BarItem>
+                    <Button Color="Color.Primary" Clicked="@ShowCreateAlert">Create Alert</Button>
+                </BarItem>
+                <BarItem>
+                    <BarDropdown>
+                        <BarDropdownToggle Color="Color.Secondary">
+                            ...
+                        </BarDropdownToggle>
+                        <BarDropdownMenu>
+                            <BarDropdownItem>Ack All</BarDropdownItem>
+                            <BarDropdownItem>Close All</BarDropdownItem>
+                        </BarDropdownMenu>
+                    </BarDropdown>
+                </BarItem>
+            </BarEnd>
+        </BarMenu>
+    </Bar>
+    <Div Class="d-flex">
+        <Div Class="flex-grow-1">
+            <TextEdit Placeholder="Search" />
+        </Div>
+        <Div>
+            <Button>Search</Button>
+        </Div>
+        <Div>
+            <Button>Save</Button>
+        </Div>
+        <Div>
+            <Button>...</Button>
+        </Div>
+    </Div>
+    <Div Class="d-flex">
+        <Div>
+            <Switch TValue="bool">See all alerts</Switch>
+        </Div>
+        <Div Class="flex-grow-1">
+            <Check TValue="bool">Select</Check>
+        </Div>
+        <Div>
+            <Select TValue="string">
+                <SelectItem Value="@("LastHour")">Last Hour</SelectItem>
+                <SelectItem Value="@("LastHour")">Last Day</SelectItem>
+                <SelectItem Value="@("LastHour")">Last Week</SelectItem>
+                <SelectItem Value="@("LastHour")">Last Month</SelectItem>
+                <SelectItem Value="@("LastHour")">Last Year</SelectItem>
+                <SelectItem Value="@("LastHour")">All Time</SelectItem>
+                <SelectItem Value="@("LastHour")">Custom Range</SelectItem>
+            </Select>
+        </Div>
+        <Div>
+            <Dropdown>
+                <DropdownToggle><Icon Name="@(IconName.SliderHorizontal)"/></DropdownToggle>
+                <DropdownMenu>
+                    <DropdownHeader>SORT OPTION</DropdownHeader>
+                    <DropdownItem>Created</DropdownItem>
+                    <DropdownItem>Occurred</DropdownItem>
+                    <DropdownHeader>VIEW OPTION</DropdownHeader>
+                    <DropdownItem>Comfort view</DropdownItem>
+                    <DropdownItem>Cozy view</DropdownItem>
+                    <DropdownItem>Lite view</DropdownItem>
+                    <DropdownHeader>EXPORT OPTION</DropdownHeader>
+                    <DropdownItem><Div Class="d-flex"><Div Class="flex-grow-1">Export CSV</Div><Div><Icon Name="@(IconName.Download)" /></Div></Div> </DropdownItem>
+                </DropdownMenu>
+            </Dropdown>
+        </Div>
+    </Div>
+    <Layout Sider>
+        <LayoutSider>
+            <LayoutSiderContent>
+                <Bar Mode="BarMode.VerticalInline"
+                     CollapseMode="BarCollapseMode.Small"
+                     Breakpoint="Breakpoint.Desktop"
+                     NavigationBreakpoint="Breakpoint.Tablet"
+                     ThemeContrast="ThemeContrast.Light">
+                    <BarBrand>
+                        <BarItem>
+                            <BarLink To="#">
+                                <BarIcon IconName="IconName.Dashboard" />
+                                Saved searches
+                            </BarLink>
+                        </BarItem>
+                    </BarBrand>
+                    <BarMenu>
+                        <BarStart>
+                            <BarItem>
+                                <BarDropdown>
+                                    <BarDropdownToggle>
+                                        <BarIcon IconName="IconName.Edit" />
+                                        PREDEFINED
+                                    </BarDropdownToggle>
+                                    <BarDropdownMenu>
+                                        <BarDropdownItem>All</BarDropdownItem>
+                                        <BarDropdownItem>Open</BarDropdownItem>
+                                        <BarDropdownItem>Closed</BarDropdownItem>
+                                        <BarDropdownItem>Un'Acked'</BarDropdownItem>
+                                        <BarDropdownItem>Not seen</BarDropdownItem>
+                                        <BarDropdownItem>Assigned to me</BarDropdownItem>
+                                    </BarDropdownMenu>
+                                </BarDropdown>
+                            </BarItem>
+                            <BarItem>
+                                <BarDropdown>
+                                    <BarDropdownToggle>
+                                        <BarIcon IconName="IconName.Edit" />
+                                        CREATED BY ME
+                                    </BarDropdownToggle>
+                                    <BarDropdownMenu>
+                                    </BarDropdownMenu>
+                                </BarDropdown>
+                            </BarItem>
+                        </BarStart>
+                    </BarMenu>
+                </Bar>
+            </LayoutSiderContent>
+        </LayoutSider>
+        <Layout>
+            <LayoutContent>
+                Content
+            </LayoutContent>
+        </Layout>
+    </Layout>
+</Container>
 
-}
+
