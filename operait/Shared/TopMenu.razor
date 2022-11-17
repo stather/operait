@@ -9,23 +9,29 @@
         <BarMenu>
             <BarStart>
                 <BarItem>
-                    <BarLink>Alerts</BarLink>
+                    <BarLink To="/alert/list">Alerts</BarLink>
                 </BarItem>
+                <FeatureHubFlag Feature="incidents">
+                    <BarItem>
+                        <BarLink>Incidents</BarLink>
+                    </BarItem>
+                </FeatureHubFlag>
                 <BarItem>
-                    <BarLink>Incidents</BarLink>
-                </BarItem>
-                <BarItem>
-                    <BarLink>Who is on-call</BarLink>
+                    <BarLink To="/whoisoncall">Who is on-call</BarLink>
                 </BarItem>
                 <BarItem>
                     <BarLink To="/teams/list">Teams</BarLink>
                 </BarItem>
-                <BarItem>
-                    <BarLink>Services</BarLink>
-                </BarItem>
-                <BarItem>
-                    <BarLink>Analytics</BarLink>
-                </BarItem>
+                <FeatureHubFlag Feature="services">
+                    <BarItem>
+                        <BarLink>Services</BarLink>
+                    </BarItem>
+                </FeatureHubFlag>
+                <FeatureHubFlag Feature="analytics">
+                    <BarItem>
+                        <BarLink>Analytics</BarLink>
+                    </BarItem>
+                </FeatureHubFlag>
                 <BarItem>
                     <BarLink To="/settings/user/users">Settings</BarLink>
                 </BarItem>

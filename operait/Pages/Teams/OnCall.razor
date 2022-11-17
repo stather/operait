@@ -125,6 +125,22 @@
             </BarEnd>
         </BarMenu>
     </Bar>
+    <Repeater Items="@(team?.Schedules)">
+        <Div Class="" Border="Border.Is1">
+            <Row>
+                <Column ColumnSize="ColumnSize.IsHalf">
+                    <Div Flex="Flex.JustifyContent.Start">
+                        @context.Name
+                    </Div>
+                </Column>
+                <Column ColumnSize="ColumnSize.IsHalf">
+                    <Div Flex="Flex.JustifyContent.End">
+                        <Icon Name="IconName.AngleDown"/>
+                    </Div>
+                </Column>
+            </Row>
+        </Div>
+    </Repeater>
 </Container>
 
 
@@ -286,7 +302,14 @@
                 <FieldLabel>Name</FieldLabel>
                 <TextEdit @bind-Text="@scheduleName"></TextEdit>
             </Field>
-            <Field></Field>
+            <Field>
+                <FieldLabel>Description</FieldLabel>
+                <MemoEdit Rows="2" @bind-Text="scheduleDescription"></MemoEdit>
+            </Field>
         </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Secondary" Clicked="@CloseAddSchedule">Cancel</Button>
+            <Button Color="Color.Primary" Clicked="@AddSchedule">Add</Button>
+        </ModalFooter>
     </ModalContent>
 </Modal>

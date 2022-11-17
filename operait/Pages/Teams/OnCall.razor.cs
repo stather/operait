@@ -37,8 +37,11 @@ namespace operait.Pages.Teams
         public string teamId { get; set; }
         private Team? team;
 
+        #region schedule variables
         private Modal? addScheduleRef;
         private string scheduleName;
+        private string scheduleDescription;
+        #endregion
 
         [Inject]
         protected DatabaseService DatabaseService { get; set; }
@@ -68,10 +71,29 @@ namespace operait.Pages.Teams
 
         }
 
-        void ShowAddSchedule()
+        #region schedule methods
+        Task ShowAddSchedule()
         {
-
+            return addScheduleRef.Show();
         }
+
+        Task CloseAddSchedule()
+        {
+            return addScheduleRef.Hide();
+        }
+
+        async Task AddSchedule()
+        {
+            var s = new Schedule
+            {
+                Name = scheduleName,
+                Description = scheduleDescription,
+                Enabled = true
+            };
+            team.Schedules.Add(s);
+            await DatabaseService.UpdateTeamAsync(team);
+        }
+        #endregion
 
         void AddCondition()
         {

@@ -42,5 +42,10 @@ namespace operait.Services
             return team;
         }
 
+        public async Task UpdateTeamAsync(Team team)
+        {
+            await teamsCollection.ReplaceOneAsync(a => a.Id == team.Id, team);
+        }
+
     }
 }
