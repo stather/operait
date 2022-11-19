@@ -60,6 +60,7 @@ namespace operait.Services
         {
             var update = Builders<Sequence>.Update.Inc(f => f.Value, 1);
             var s = await sequenceCollection.FindOneAndUpdateAsync(f => f.Name == "TinyId", update);
+            alert.TinyId = s.Value;
             await alertCollection.InsertOneAsync(alert);
         }
 
