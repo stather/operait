@@ -54,6 +54,11 @@ namespace operait.Services
                 };
                 await integrationsCollection.InsertOneAsync(integ);
             }
+            c = await sequenceCollection.CountDocumentsAsync(x => x.Name == "TinyId");
+            if (c == 0)
+            {
+                await sequenceCollection.InsertOneAsync(new Sequence { Name = "TinyId", Value = 0 });
+            }
         }
 
         public async Task AddAlertAsync(Alert alert)
