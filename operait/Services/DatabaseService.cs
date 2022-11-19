@@ -58,9 +58,8 @@ namespace operait.Services
 
         public async Task AddAlertAsync(Alert alert)
         {
-            var filter = Builders<Sequence>.Filter.And(Builders<Sequence>.Filter.Eq("Name", "TinyId"));
-            var update = Builders<Sequence>.Update.Inc("Value", 1);
-            var s = await sequenceCollection.FindOneAndUpdateAsync<Sequence>(filter, update);
+            var update = Builders<Sequence>.Update.Inc(f => f.Value, 1);
+            var s = await sequenceCollection.FindOneAndUpdateAsync(f => f.Name == "TinyId", update);
             await alertCollection.InsertOneAsync(alert);
         }
 
