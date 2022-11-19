@@ -145,17 +145,19 @@
         <ModalBody>
             <Field>
                 <FieldLabel>API integration</FieldLabel>
-                <Select TValue="string">
-                    <SelectItem Value="@("DefaultApi")">Default API</SelectItem>
+                <Select TValue="string" @bind-SelectedValue="selectedIntegration">
+                    <Repeater Items="@(apis)">
+                        <SelectItem Value="@(context.Id)">@context.Name</SelectItem>
+                    </Repeater>
                 </Select>
             </Field>
             <Field>
                 <FieldLabel>Alert message</FieldLabel>
-                <MemoEdit></MemoEdit>
+                <MemoEdit @bind-Text="@alertMessage"></MemoEdit>
             </Field>
             <Field>
                 <FieldLabel>Priority</FieldLabel>
-                <Select TValue="AlertPriority">
+                <Select TValue="AlertPriority" @bind-SelectedValue="selectedPriority">
                     <SelectItem Value="@(AlertPriority.P1_Critical)">P1-Critical</SelectItem>
                     <SelectItem Value="@(AlertPriority.P2_High)">P2-High</SelectItem>
                     <SelectItem Value="@(AlertPriority.P3_Moderate)">P3-Moderate</SelectItem>
@@ -165,11 +167,28 @@
             </Field>
             <Field>
                 <FieldLabel>Responders</FieldLabel>
-                <TextEdit></TextEdit>
+                <Autocomplete TItem="Responder"
+                            TValue="string"
+                            Data="@responders"
+                            TextField="@((item) => item.Name)"
+                            ValueField="@((item) => item.Id)"
+                            SelectionMode="AutocompleteSelectionMode.Multiple"
+                            @bind-SelectedValues="selectedRespondersIds"
+                            @bind-SelectedTexts="selectedRespondersNames">
+                            </Autocomplete>
             </Field>
             <Field>
                 <FieldLabel>Tags</FieldLabel>
-                <TextEdit></TextEdit>
+                <Autocomplete TItem="Tag"
+                              TValue="string"
+                              Data="@tags"
+                              TextField="@((item) => item.Name)"
+                              ValueField="@((item) => item.Id)"
+                              SelectionMode="AutocompleteSelectionMode.Multiple"
+                              @bind-SelectedValues="selectedTagIds"
+                              @bind-SelectedTexts="selectedTagNames"
+                              FreeTyping>
+                </Autocomplete>
             </Field>
         </ModalBody>
         <ModalFooter>

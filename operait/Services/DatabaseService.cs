@@ -1,6 +1,8 @@
 ﻿using FeatureHubSDK;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using operait.Documents;
+using Tag = operait.Documents.Tag;
 
 namespace operait.Services
 {
@@ -10,6 +12,8 @@ namespace operait.Services
         private IMongoDatabase database;
         private IMongoCollection<User> usersCollection;
         private IMongoCollection<Team> teamsCollection;
+        private IMongoCollection<Tag> tagsCollection;
+        private IMongoCollection<Integration> integrationsCollection;
 
         public DatabaseService(IConfiguration configuration, IFeatureHubConfig config)
         {
@@ -18,7 +22,43 @@ namespace operait.Services
             database = client.GetDatabase("OperaiteDB");
             usersCollection = database.GetCollection<User>("Users");
             teamsCollection = database.GetCollection<Team>("Teams");
+            tagsCollection = database.GetCollection<Tag>("Tags");
+            integrationsCollection = database.GetCollection<Integration>("Integrations");
         }
+
+        public async Task CheckDatabase()
+        {
+            var c = await integrationsCollection.CountDocumentsAsync<Integration>(i => i.Name == "Default API");
+            if (c == 0)
+            {
+                var integ = new Integration
+                {
+                    Name = "Default API",
+                    Enabled = true,
+                    IntegrationType = IntegrationType.API,
+                    Priority = AlertPriority.P3_Moderate,
+                    SuppressNotifications = false,
+                    ApiAttributes = new ApiAttributes
+                    {
+                        ApiKey = Guid.NewGuid().ToString(),
+                        CreateAndUpdateAccess = true,
+                        DeleteAccess = true,
+                        ReadAccess = true,
+                        RestrictConfigurationAccess = true,
+                    }
+
+                };
+                await integrationsCollection.InsertOneAsync(integ);
+            }
+        }
+
+        public async Task<List<Integration>> GetApiIntegrations()
+        {
+            var l = await integrationsCollection.FindAsync<Integration>(x => x.IntegrationType == IntegrationType.API);
+            return l.ToList();
+        }
+
+        #region User
 
         public async Task AddUserAsync(User user) { await usersCollection.InsertOneAsync(user); }
 
@@ -27,11 +67,13 @@ namespace operait.Services
             var users = (await usersCollection.FindAsync(user => true)).ToList();
             return users;
         }
+        #endregion
 
+        #region Team
         public async Task AddTeamAsync(Team team) { await teamsCollection.InsertOneAsync(team); }
 
-        public async Task <List<Team>> GetAllTeamsAsync() 
-        { 
+        public async Task<List<Team>> GetAllTeamsAsync()
+        {
             var teams = (await teamsCollection.FindAsync(team => true)).ToList();
             return teams;
         }
@@ -46,6 +88,17 @@ namespace operait.Services
         {
             await teamsCollection.ReplaceOneAsync(a => a.Id == team.Id, team);
         }
+        #endregion
+
+        #region tag
+        public async Task<List<Tag>> GetAllTagsAsync()
+        {
+            var tags = (await tagsCollection.FindAsync(tag => true)).ToList();
+            return tags;
+        }
+        public async Task AddTagAsync(Tag tag) { await tagsCollection.InsertOneAsync(tag); }
+
+        #endregion
 
     }
 }
