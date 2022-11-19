@@ -19,6 +19,7 @@ using Blazorise.DataGrid;
 using Blazorise.Components;
 using operait.Documents;
 using operait.Services;
+using Alert = operait.Documents.Alert;
 
 namespace operait.Pages.Alerts
 {
@@ -33,10 +34,12 @@ namespace operait.Pages.Alerts
         private List<string> selectedTagIds = new List<string>();
         private List<string> selectedTagNames = new List<string>();
         private string selectedIntegration;
-        private AlertPriority selectedPriority;
+        private AlertPriority selectedPriority = AlertPriority.P3_Moderate;
 
         private string alertMessage;
         private string alias;
+
+        private List<Alert> alerts;
 
         [Inject]
         protected DatabaseService DatabaseService { get; set; }
@@ -50,6 +53,7 @@ namespace operait.Pages.Alerts
             responders.AddRange(teams.Select(t => new Responder { Id=t.Id, Name=t.Name, Type=ResponderType.Team}));
             tags = await DatabaseService.GetAllTagsAsync();
             apis = await DatabaseService.GetApiIntegrations();
+            alerts = await DatabaseService.GetAllAlertsAsync();
         }
 
         private Task ShowCreateAlert()
@@ -68,11 +72,12 @@ namespace operait.Pages.Alerts
             {
                 AlertMessage = alertMessage,
                 LastUpdated = DateTime.UtcNow,
-                Acknowledged = false,
+                Status = AlertStatus.Open,
                 Alias = string.IsNullOrEmpty(alias)?Guid.NewGuid().ToString():alias,
                 ApiIntegrationId = selectedIntegration,
-                Open = true,
                 Priority = selectedPriority,
+                DeduplicationCounter = 1,
+                CreatedAt= DateTime.UtcNow,
             };
             alert.Tags.AddRange(selectedTagNames);
             alert.Responders.AddRange(selectedResponders);

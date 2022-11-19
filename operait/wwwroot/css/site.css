@@ -43,6 +43,11 @@
     }
 
 
-.op-bordered {
-
+.P1_Critical {
+    color:white;
+    background-color:red;
+    border-radius:5px;
+    width:30px;
+    text-align:center
 }
+

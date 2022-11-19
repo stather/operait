@@ -17,11 +17,11 @@ namespace operait.Documents
     }
     public enum AlertPriority
     {
-        P1_Critical,
-        P2_High,
-        P3_Moderate,
-        P4_Low,
-        P5_Informational
+        P1_Critical = 1,
+        P2_High = 2,
+        P3_Moderate = 3,
+        P4_Low = 4,
+        P5_Informational = 5
     }
 
     public class Note
@@ -66,6 +66,12 @@ namespace operait.Documents
         public ResponderStateValues State { get; set; }
 
     }
+    public enum AlertStatus
+    {
+        Open,
+        Acked,
+        Closed
+    }
     public class Alert
     {
         [BsonId]
@@ -75,6 +81,7 @@ namespace operait.Documents
 
         public int TinyId { get; set; }
         public string ApiIntegrationId { get; set; }
+        public int DeduplicationCounter { get; set; }
 
         public string AlertMessage { get; set; }
 
@@ -86,12 +93,11 @@ namespace operait.Documents
 
         public List<string> Tags { get; set; } = new List<string>();
 
-        public bool Acknowledged { get; set; }
-
-        public bool Open { get; set; } = true;
+        public AlertStatus Status { get; set; }
 
         public string Source { get; set; }
 
+        public DateTime CreatedAt { get; set; }
         public DateTime LastUpdated { get; set; }
 
         public string Description { get; set; }

@@ -61,6 +61,7 @@ namespace operait.Services
             }
         }
 
+        #region alerts
         public async Task AddAlertAsync(Alert alert)
         {
             var update = Builders<Sequence>.Update.Inc(f => f.Value, 1);
@@ -69,12 +70,22 @@ namespace operait.Services
             await alertCollection.InsertOneAsync(alert);
         }
 
+        internal async Task<List<Alert>> GetAllAlertsAsync()
+        {
+            var l = await alertCollection.FindAsync(x => true);
+            return l.ToList();
+        }
+        #endregion
 
+
+
+        #region integrations
         public async Task<List<Integration>> GetApiIntegrations()
         {
             var l = await integrationsCollection.FindAsync<Integration>(x => x.IntegrationType == IntegrationType.API);
             return l.ToList();
         }
+        #endregion
 
         #region User
 
@@ -115,6 +126,7 @@ namespace operait.Services
             return tags;
         }
         public async Task AddTagAsync(Tag tag) { await tagsCollection.InsertOneAsync(tag); }
+
 
         #endregion
 
