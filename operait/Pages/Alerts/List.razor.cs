@@ -26,7 +26,7 @@ namespace operait.Pages.Alerts
     {
         private Modal? createAlertRef;
         private List<Responder> responders = new List<Responder>();
-        private List<string> selectedRespondersIds = new List<string>();
+        private List<Responder> selectedResponders = new List<Responder>();
         private List<string> selectedRespondersNames = new List<string>();
         private List<Tag> tags;
         private List<Integration> apis;
@@ -73,8 +73,11 @@ namespace operait.Pages.Alerts
                 ApiIntegrationId = selectedIntegration,
                 Open = true,
                 Priority = selectedPriority,
-                
             };
+            alert.Tags.AddRange(selectedTagNames);
+            alert.Responders.AddRange(selectedResponders);
+            alert.Activities.Add(new Activity { CreatedAt= DateTime.UtcNow, Description="Alert created via web" });
+            DatabaseService.
             return createAlertRef.Hide();
         }
     }

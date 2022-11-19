@@ -73,6 +73,7 @@ namespace operait.Documents
         public string Id { get; set; }
         public string Alias { get; set; }
 
+        public int TinyId { get; set; }
         public string ApiIntegrationId { get; set; }
 
         public string AlertMessage { get; set; }

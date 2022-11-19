@@ -168,12 +168,12 @@
             <Field>
                 <FieldLabel>Responders</FieldLabel>
                 <Autocomplete TItem="Responder"
-                            TValue="string"
+                            TValue="Responder"
                             Data="@responders"
                             TextField="@((item) => item.Name)"
-                            ValueField="@((item) => item.Id)"
+                            ValueField="@((item) => item)"
                             SelectionMode="AutocompleteSelectionMode.Multiple"
-                            @bind-SelectedValues="selectedRespondersIds"
+                            @bind-SelectedValues="selectedResponders"
                             @bind-SelectedTexts="selectedRespondersNames">
                             </Autocomplete>
             </Field>

@@ -52,6 +52,14 @@ namespace operait.Services
             }
         }
 
+        public async Task AddAlertAsync(Alert alert)
+        {
+            //var c = new JsonCommand()
+            //database.RunCommandAsync(new Command { })
+            database.GetCollection<int>("abc").FindOneAndUpdateAsync()
+        }
+
+
         public async Task<List<Integration>> GetApiIntegrations()
         {
             var l = await integrationsCollection.FindAsync<Integration>(x => x.IntegrationType == IntegrationType.API);
