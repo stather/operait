@@ -14,6 +14,8 @@ namespace operait.Services
         private IMongoCollection<Team> teamsCollection;
         private IMongoCollection<Tag> tagsCollection;
         private IMongoCollection<Integration> integrationsCollection;
+        private IMongoCollection<Sequence> sequenceCollection;
+        private IMongoCollection<Alert> alertCollection;
 
         public DatabaseService(IConfiguration configuration, IFeatureHubConfig config)
         {
@@ -24,6 +26,8 @@ namespace operait.Services
             teamsCollection = database.GetCollection<Team>("Teams");
             tagsCollection = database.GetCollection<Tag>("Tags");
             integrationsCollection = database.GetCollection<Integration>("Integrations");
+            sequenceCollection = database.GetCollection<Sequence>("Sequences");
+            alertCollection = database.GetCollection<Alert>("Alerts");
         }
 
         public async Task CheckDatabase()
@@ -54,9 +58,10 @@ namespace operait.Services
 
         public async Task AddAlertAsync(Alert alert)
         {
-            //var c = new JsonCommand()
-            //database.RunCommandAsync(new Command { })
-            database.GetCollection<int>("abc").FindOneAndUpdateAsync()
+            var filter = Builders<Sequence>.Filter.And(Builders<Sequence>.Filter.Eq("Name", "TinyId"));
+            var update = Builders<Sequence>.Update.Inc("Value", 1);
+            var s = await sequenceCollection.FindOneAndUpdateAsync<Sequence>(filter, update);
+            await alertCollection.InsertOneAsync(alert);
         }
 
 

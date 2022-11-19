@@ -62,7 +62,7 @@ namespace operait.Pages.Alerts
             return createAlertRef.Hide();
         }
 
-        private Task CreateAlert()
+        private async Task CreateAlert()
         {
             var alert = new Documents.Alert
             {
@@ -77,8 +77,8 @@ namespace operait.Pages.Alerts
             alert.Tags.AddRange(selectedTagNames);
             alert.Responders.AddRange(selectedResponders);
             alert.Activities.Add(new Activity { CreatedAt= DateTime.UtcNow, Description="Alert created via web" });
-            DatabaseService.
-            return createAlertRef.Hide();
+            await DatabaseService.AddAlertAsync(alert);
+            await createAlertRef.Hide();
         }
     }
 }
