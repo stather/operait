@@ -55,6 +55,11 @@ namespace operait.Pages.Alerts
             apis = await DatabaseService.GetApiIntegrations();
             alerts = await DatabaseService.GetAllAlertsAsync();
         }
+
+        private Task ToggleClicked()
+        {
+            return Task.CompletedTask;
+        }
         private Task RowOver(operait.Documents.Alert data)
         {
             return Task.CompletedTask;

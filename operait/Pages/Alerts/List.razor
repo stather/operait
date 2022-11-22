@@ -130,14 +130,30 @@
         <Layout>
             <LayoutContent>
                 <Container>
-                    <DataGrid TItem="operait.Documents.Alert"
+                    <DataGrid TItem="operait.Documents.Alert" 
                         Data="@alerts"
                         SelectionMode="DataGridSelectionMode.Multiple"
                         RowOver="(args) => RowOver(args.Item)"
                         ShowCaptions=false>
                         <OverlayTemplate>
-                            <Div Style="width:400px;background-color:orangered;">
-                                <Button>Hello World</Button>
+                            <Div Flex="Flex.JustifyContent.End.AlignItems.Center" Margin="Margin.Is3.FromBottom" Style="width:400px;background-color:white;">
+                                <Div Padding="Padding.Is2">
+                                    <Button Size="Size.Small" Color="Color.Secondary" onclick="event.stopPropagation();">Ack</Button>
+                                </Div>
+                                <Div Padding="Padding.Is2">
+                                    <Button Size="Size.Small" Color="Color.Secondary" onclick="event.stopPropagation();">Close</Button>
+                                </Div>
+                                <Div Padding="Padding.Is2" @onclick:stopPropagation="true" Overflow="Overflow.Visible">
+                                    <Dropdown Style="z-index:2000;">
+                                        <DropdownToggle Size="Size.Small" Clicked="ToggleClicked">
+                                            ...
+                                        </DropdownToggle>
+                                        <DropdownMenu>
+                                            <DropdownItem>Add responder</DropdownItem>
+                                            <DropdownItem>Delete</DropdownItem>
+                                        </DropdownMenu>
+                                    </Dropdown>
+                                </Div>
                             </Div>
                         </OverlayTemplate>
                         <DataGridColumns>

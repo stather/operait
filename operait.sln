@@ -5,17 +5,21 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "operait", "operait\operait.csproj", "{3726978A-A439-4E99-83AA-6A8250E49D69}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazorise.DataGrid", "..\..\Blazorise\Source\Extensions\Blazorise.DataGrid\Blazorise.DataGrid.csproj", "{7D93234F-EBE4-4CEF-AFCD-984F915ABCA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazorise.Bootstrap5", "Blazorise\Source\Blazorise.Bootstrap5\Blazorise.Bootstrap5.csproj", "{29B84CB6-751F-44C4-8BD6-DA2AADFC094F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazorise.Bootstrap5", "..\..\Blazorise\Source\Blazorise.Bootstrap5\Blazorise.Bootstrap5.csproj", "{6657BCA5-A2A8-4B60-9786-F47D2281AA55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazorise", "Blazorise\Source\Blazorise\Blazorise.csproj", "{FD8CAA20-71CD-4FB8-9CB5-D04687523161}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazorise.Components", "..\..\Blazorise\Source\Extensions\Blazorise.Components\Blazorise.Components.csproj", "{71AA7663-52E9-41DD-9AA8-F11CDBEB2EB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazorise.Components", "Blazorise\Source\Extensions\Blazorise.Components\Blazorise.Components.csproj", "{2B684AFE-9618-4174-8D9A-739FFD841F74}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazorise.Icons.FontAwesome", "..\..\Blazorise\Source\Extensions\Blazorise.Icons.FontAwesome\Blazorise.Icons.FontAwesome.csproj", "{A223FA83-8D85-44A2-BE13-EDCF0655850C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazorise.DataGrid", "Blazorise\Source\Extensions\Blazorise.DataGrid\Blazorise.DataGrid.csproj", "{47B3C53F-A73F-4DD5-91F3-5EF90D61490E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazorise.Snackbar", "..\..\Blazorise\Source\Extensions\Blazorise.Snackbar\Blazorise.Snackbar.csproj", "{E8CD4E99-7086-4932-A36D-4D03E3517C1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazorise.Icons.FontAwesome", "Blazorise\Source\Extensions\Blazorise.Icons.FontAwesome\Blazorise.Icons.FontAwesome.csproj", "{E293313D-D4D8-4B84-8398-97A23694B8E9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazorise", "..\..\Blazorise\Source\Blazorise\Blazorise.csproj", "{FBCEAC3D-A4A7-4506-B228-A1AB32490782}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazorise.Snackbar", "Blazorise\Source\Extensions\Blazorise.Snackbar\Blazorise.Snackbar.csproj", "{5D1C8236-9A11-4790-9A35-9FE5F4378379}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazorise.Generator", "Blazorise\Source\SourceGenerators\Blazorise.Generator\Blazorise.Generator.csproj", "{F6CE8994-0168-4681-8062-D8FE2C461B8C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazorise.Generator.Features", "Blazorise\Source\SourceGenerators\Blazorise.Generator.Features\Blazorise.Generator.Features.csproj", "{C9B2FF56-C797-4610-8F26-CB9B5611C9DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,30 +31,38 @@ Global
 		{3726978A-A439-4E99-83AA-6A8250E49D69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3726978A-A439-4E99-83AA-6A8250E49D69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3726978A-A439-4E99-83AA-6A8250E49D69}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7D93234F-EBE4-4CEF-AFCD-984F915ABCA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D93234F-EBE4-4CEF-AFCD-984F915ABCA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7D93234F-EBE4-4CEF-AFCD-984F915ABCA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7D93234F-EBE4-4CEF-AFCD-984F915ABCA8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6657BCA5-A2A8-4B60-9786-F47D2281AA55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6657BCA5-A2A8-4B60-9786-F47D2281AA55}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6657BCA5-A2A8-4B60-9786-F47D2281AA55}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6657BCA5-A2A8-4B60-9786-F47D2281AA55}.Release|Any CPU.Build.0 = Release|Any CPU
-		{71AA7663-52E9-41DD-9AA8-F11CDBEB2EB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{71AA7663-52E9-41DD-9AA8-F11CDBEB2EB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{71AA7663-52E9-41DD-9AA8-F11CDBEB2EB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{71AA7663-52E9-41DD-9AA8-F11CDBEB2EB1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A223FA83-8D85-44A2-BE13-EDCF0655850C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A223FA83-8D85-44A2-BE13-EDCF0655850C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A223FA83-8D85-44A2-BE13-EDCF0655850C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A223FA83-8D85-44A2-BE13-EDCF0655850C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E8CD4E99-7086-4932-A36D-4D03E3517C1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E8CD4E99-7086-4932-A36D-4D03E3517C1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E8CD4E99-7086-4932-A36D-4D03E3517C1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E8CD4E99-7086-4932-A36D-4D03E3517C1E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FBCEAC3D-A4A7-4506-B228-A1AB32490782}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FBCEAC3D-A4A7-4506-B228-A1AB32490782}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FBCEAC3D-A4A7-4506-B228-A1AB32490782}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FBCEAC3D-A4A7-4506-B228-A1AB32490782}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29B84CB6-751F-44C4-8BD6-DA2AADFC094F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29B84CB6-751F-44C4-8BD6-DA2AADFC094F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29B84CB6-751F-44C4-8BD6-DA2AADFC094F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29B84CB6-751F-44C4-8BD6-DA2AADFC094F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD8CAA20-71CD-4FB8-9CB5-D04687523161}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD8CAA20-71CD-4FB8-9CB5-D04687523161}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD8CAA20-71CD-4FB8-9CB5-D04687523161}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD8CAA20-71CD-4FB8-9CB5-D04687523161}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B684AFE-9618-4174-8D9A-739FFD841F74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B684AFE-9618-4174-8D9A-739FFD841F74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B684AFE-9618-4174-8D9A-739FFD841F74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B684AFE-9618-4174-8D9A-739FFD841F74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47B3C53F-A73F-4DD5-91F3-5EF90D61490E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47B3C53F-A73F-4DD5-91F3-5EF90D61490E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47B3C53F-A73F-4DD5-91F3-5EF90D61490E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47B3C53F-A73F-4DD5-91F3-5EF90D61490E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E293313D-D4D8-4B84-8398-97A23694B8E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E293313D-D4D8-4B84-8398-97A23694B8E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E293313D-D4D8-4B84-8398-97A23694B8E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E293313D-D4D8-4B84-8398-97A23694B8E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D1C8236-9A11-4790-9A35-9FE5F4378379}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D1C8236-9A11-4790-9A35-9FE5F4378379}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D1C8236-9A11-4790-9A35-9FE5F4378379}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D1C8236-9A11-4790-9A35-9FE5F4378379}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6CE8994-0168-4681-8062-D8FE2C461B8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6CE8994-0168-4681-8062-D8FE2C461B8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6CE8994-0168-4681-8062-D8FE2C461B8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6CE8994-0168-4681-8062-D8FE2C461B8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9B2FF56-C797-4610-8F26-CB9B5611C9DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9B2FF56-C797-4610-8F26-CB9B5611C9DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9B2FF56-C797-4610-8F26-CB9B5611C9DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9B2FF56-C797-4610-8F26-CB9B5611C9DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

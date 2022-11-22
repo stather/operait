@@ -15,11 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Blazorise\Source\Blazorise.Bootstrap5\Blazorise.Bootstrap5.csproj" />
-    <ProjectReference Include="..\..\..\Blazorise\Source\Extensions\Blazorise.Components\Blazorise.Components.csproj" />
-    <ProjectReference Include="..\..\..\Blazorise\Source\Extensions\Blazorise.DataGrid\Blazorise.DataGrid.csproj" />
-    <ProjectReference Include="..\..\..\Blazorise\Source\Extensions\Blazorise.Icons.FontAwesome\Blazorise.Icons.FontAwesome.csproj" />
-    <ProjectReference Include="..\..\..\Blazorise\Source\Extensions\Blazorise.Snackbar\Blazorise.Snackbar.csproj" />
+    <ProjectReference Include="..\Blazorise\Source\Blazorise.Bootstrap5\Blazorise.Bootstrap5.csproj" />
+    <ProjectReference Include="..\Blazorise\Source\Blazorise\Blazorise.csproj" />
+    <ProjectReference Include="..\Blazorise\Source\Extensions\Blazorise.Components\Blazorise.Components.csproj" />
+    <ProjectReference Include="..\Blazorise\Source\Extensions\Blazorise.DataGrid\Blazorise.DataGrid.csproj" />
+    <ProjectReference Include="..\Blazorise\Source\Extensions\Blazorise.Icons.FontAwesome\Blazorise.Icons.FontAwesome.csproj" />
   </ItemGroup>
 
 </Project>
