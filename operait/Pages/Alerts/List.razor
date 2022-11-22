@@ -139,7 +139,6 @@
                             <DisplayTemplate>
                                 @{
                                     <span>#</span>
-
                                     @context.TinyId
                                 }
                             </DisplayTemplate>
@@ -148,7 +147,6 @@
                             <DisplayTemplate>
                                 @{
                                     <span>x</span>
-
                                     @context.DeduplicationCounter
                                 }
                             </DisplayTemplate>
@@ -171,6 +169,11 @@
                         <DataGridColumn Field="@nameof(operait.Documents.Alert.Status)" CellClass="@((item) => $"AlertStatus_{item.Priority.ToString()}")" Width="60px">
                             <DisplayTemplate>
                                 @(context.Status)
+                            </DisplayTemplate>
+                        </DataGridColumn>
+                        <DataGridColumn Field="@nameof(operait.Documents.Alert.Status)"  Width="60px">
+                            <DisplayTemplate>
+                                <Div @onmouseover="(args) => RowOver()" Height="Height.Is25">...</Div>
                             </DisplayTemplate>
                         </DataGridColumn>
                     </DataGrid>

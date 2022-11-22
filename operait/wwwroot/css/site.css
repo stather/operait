@@ -44,10 +44,38 @@
 
 
 .P1_Critical {
-    color:white;
-    background-color:red;
-    border-radius:5px;
-    width:30px;
-    text-align:center
+    color: white;
+    background-color: red;
+    border-radius: 5px;
+    width: 30px;
+    text-align: center
+}
+.P2_High {
+    color: white;
+    background-color: coral;
+    border-radius: 5px;
+    width: 30px;
+    text-align: center
+}
+.P3_Moderate {
+    color: white;
+    background-color: orange;
+    border-radius: 5px;
+    width: 30px;
+    text-align: center
+}
+.P4_Low {
+    color: white;
+    background-color: seagreen;
+    border-radius: 5px;
+    width: 30px;
+    text-align: center
+}
+.P5_Informational {
+    color: white;
+    background-color: darkgreen;
+    border-radius: 5px;
+    width: 30px;
+    text-align: center
 }
 
