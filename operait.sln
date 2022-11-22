@@ -5,6 +5,18 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "operait", "operait\operait.csproj", "{3726978A-A439-4E99-83AA-6A8250E49D69}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazorise.DataGrid", "..\..\Blazorise\Source\Extensions\Blazorise.DataGrid\Blazorise.DataGrid.csproj", "{7D93234F-EBE4-4CEF-AFCD-984F915ABCA8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazorise.Bootstrap5", "..\..\Blazorise\Source\Blazorise.Bootstrap5\Blazorise.Bootstrap5.csproj", "{6657BCA5-A2A8-4B60-9786-F47D2281AA55}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazorise.Components", "..\..\Blazorise\Source\Extensions\Blazorise.Components\Blazorise.Components.csproj", "{71AA7663-52E9-41DD-9AA8-F11CDBEB2EB1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazorise.Icons.FontAwesome", "..\..\Blazorise\Source\Extensions\Blazorise.Icons.FontAwesome\Blazorise.Icons.FontAwesome.csproj", "{A223FA83-8D85-44A2-BE13-EDCF0655850C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazorise.Snackbar", "..\..\Blazorise\Source\Extensions\Blazorise.Snackbar\Blazorise.Snackbar.csproj", "{E8CD4E99-7086-4932-A36D-4D03E3517C1E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazorise", "..\..\Blazorise\Source\Blazorise\Blazorise.csproj", "{FBCEAC3D-A4A7-4506-B228-A1AB32490782}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +27,30 @@ Global
 		{3726978A-A439-4E99-83AA-6A8250E49D69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3726978A-A439-4E99-83AA-6A8250E49D69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3726978A-A439-4E99-83AA-6A8250E49D69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D93234F-EBE4-4CEF-AFCD-984F915ABCA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D93234F-EBE4-4CEF-AFCD-984F915ABCA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D93234F-EBE4-4CEF-AFCD-984F915ABCA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D93234F-EBE4-4CEF-AFCD-984F915ABCA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6657BCA5-A2A8-4B60-9786-F47D2281AA55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6657BCA5-A2A8-4B60-9786-F47D2281AA55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6657BCA5-A2A8-4B60-9786-F47D2281AA55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6657BCA5-A2A8-4B60-9786-F47D2281AA55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71AA7663-52E9-41DD-9AA8-F11CDBEB2EB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71AA7663-52E9-41DD-9AA8-F11CDBEB2EB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71AA7663-52E9-41DD-9AA8-F11CDBEB2EB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71AA7663-52E9-41DD-9AA8-F11CDBEB2EB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A223FA83-8D85-44A2-BE13-EDCF0655850C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A223FA83-8D85-44A2-BE13-EDCF0655850C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A223FA83-8D85-44A2-BE13-EDCF0655850C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A223FA83-8D85-44A2-BE13-EDCF0655850C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8CD4E99-7086-4932-A36D-4D03E3517C1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8CD4E99-7086-4932-A36D-4D03E3517C1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8CD4E99-7086-4932-A36D-4D03E3517C1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8CD4E99-7086-4932-A36D-4D03E3517C1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBCEAC3D-A4A7-4506-B228-A1AB32490782}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBCEAC3D-A4A7-4506-B228-A1AB32490782}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBCEAC3D-A4A7-4506-B228-A1AB32490782}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBCEAC3D-A4A7-4506-B228-A1AB32490782}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
