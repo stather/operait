@@ -1,7 +1,11 @@
 ﻿using FeatureHubSDK;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using operait.Documents;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Tag = operait.Documents.Tag;
 
 namespace operait.Services
@@ -75,6 +79,13 @@ namespace operait.Services
             var l = await alertCollection.FindAsync(x => true);
             return l.ToList();
         }
+
+        public async Task<Alert> GetAlertAsync(string id)
+        {
+            var team = (await alertCollection.FindAsync(x => x.Id== id)).FirstOrDefault();
+            return team;
+        }
+
         #endregion
 
 

@@ -133,8 +133,9 @@
                     <DataGrid TItem="operait.Documents.Alert"
                               Data="@alerts"
                               SelectionMode="DataGridSelectionMode.Multiple"
+                              RowClicked="@((a) => AlertDetail(a.Item))"
                               ShowCaptions=false>
-                        <OverlayTemplate>
+                        <RowOverlayTemplate>
                             <Div Flex="Flex.JustifyContent.End.AlignItems.Center" Margin="Margin.Is3.FromBottom" Style="width:400px;background-color:white;">
                                 <Div Padding="Padding.Is2">
                                     <Button Size="Size.Small" Color="Color.Secondary" onclick="event.stopPropagation();">Ack</Button>
@@ -154,7 +155,7 @@
                                     </Dropdown>
                                 </Div>
                             </Div>
-                        </OverlayTemplate>
+                        </RowOverlayTemplate>
                         <DataGridColumns>
                             <DataGridMultiSelectColumn Width="30px"></DataGridMultiSelectColumn>
                             <DataGridColumn Field="@nameof(operait.Documents.Alert.TinyId)" Width="30px">

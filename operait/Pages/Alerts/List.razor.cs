@@ -46,6 +46,8 @@ namespace operait.Pages.Alerts
         [Inject]
         protected DatabaseService DatabaseService { get; set; }
 
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -58,6 +60,10 @@ namespace operait.Pages.Alerts
             alerts = await DatabaseService.GetAllAlertsAsync();
         }
 
+        private void AlertDetail(Alert alert)
+        {
+            NavigationManager.NavigateTo($"/alert/list/{alert.Id}");
+        }
         private Task ToggleClicked()
         {
             return Task.CompletedTask;
