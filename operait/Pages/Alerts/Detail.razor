@@ -7,7 +7,7 @@
                 <TextEdit></TextEdit>
             </Field>
             <Field ColumnSize="ColumnSize.Is2">
-                <Button><Icon Name="Blazorise.Icons.FontAwesome.FontAwesomeIcons.AngleDoubleLeft"/></Button>
+                <Button><Icon Name="Blazorise.Icons.FontAwesome.FontAwesomeIcons.AngleDoubleLeft" /></Button>
             </Field>
         </Fields>
     </Div>
@@ -26,7 +26,7 @@
                 </Div>
                 <Div Class="flex-grow-1">
                     <Div>
-                        @(alert?.LastUpdated.ToString())
+                        @(alert?.CreatedAt.ToString())
                     </Div>
                     <Div>
                         @alert?.AlertMessage
@@ -63,7 +63,7 @@
                 </Div>
             </Div>
         </Container>
-        <Divider/>
+        <Divider />
         <Div Class="d-flex">
             <Div Class="flex-grow-1">
                 <Container>
@@ -89,9 +89,30 @@
                                         <Div Class="flex-grow-1">
                                             <Repeater Items="@alert?.Responders">
                                                 <Button Size="Size.Small" Type="ButtonType.Link">@(context.Name)</Button>
-                                            </Repeater>
+                                                </Repeater>
                                         </Div>
                                     </Div>
+                                    <Div Class="d-flex">
+                                        <Div Class="row-label">Owner Team</Div>
+                                        <Div Class="flex-grow-1">@alert?.OwnerTeam</Div>
+                                    </Div>
+                                    <Div Class="d-flex">
+                                        <Div Class="row-label">Alias</Div>
+                                        <Div Class="flex-grow-1">@alert?.Alias</Div>
+                                    </Div>
+                                    <Div Class="d-flex">
+                                        <Div Class="row-label">Last Update At</Div>
+                                        <Div Class="flex-grow-1">@alert?.LastUpdated</Div>
+                                    </Div>
+                                    <Div Class="d-flex">
+                                        <Div Class="row-label">Description</Div>
+                                        <Div Class="flex-grow-1">@alert?.Description</Div>
+                                    </Div>
+                                    <Div Class="d-flex">
+                                        <Div Class="row-label">Priority</Div>
+                                        <Div Class="flex-grow-1">@alert?.Priority</Div>
+                                    </Div>
+                                    <Divider/>
                                 </Container>
                             </TabPanel>
                             <TabPanel Name="activityLog">
@@ -109,7 +130,6 @@
                 </Container>
             </Div>
             <Div>
-
             </Div>
         </Div>
     </Div>
