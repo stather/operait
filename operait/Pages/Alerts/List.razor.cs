@@ -60,14 +60,6 @@ namespace operait.Pages.Alerts
         {
             return Task.CompletedTask;
         }
-        private Task RowOver(operait.Documents.Alert data)
-        {
-            return Task.CompletedTask;
-        }
-        private Blazorise.Cursor RowHovered(operait.Documents.Alert data)
-        {
-            return Blazorise.Cursor.Pointer;
-        }
 
         private Task ShowCreateAlert()
         {
