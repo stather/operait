@@ -41,6 +41,8 @@ namespace operait.Pages.Alerts
 
         private List<Alert> alerts;
 
+        private Modal? addResponder;
+
         [Inject]
         protected DatabaseService DatabaseService { get; set; }
 
@@ -59,6 +61,11 @@ namespace operait.Pages.Alerts
         private Task ToggleClicked()
         {
             return Task.CompletedTask;
+        }
+
+        private Task ShowAddResponder(Alert alert)
+        {
+            return addResponder.Show();
         }
 
         private Task ShowCreateAlert()

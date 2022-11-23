@@ -63,7 +63,7 @@
         </Div>
         <Div>
             <Dropdown>
-                <DropdownToggle><Icon Name="@(IconName.SliderHorizontal)"/></DropdownToggle>
+                <DropdownToggle><Icon Name="@(IconName.SliderHorizontal)" /></DropdownToggle>
                 <DropdownMenu>
                     <DropdownHeader>SORT OPTION</DropdownHeader>
                     <DropdownItem>Created</DropdownItem>
@@ -130,10 +130,10 @@
         <Layout>
             <LayoutContent>
                 <Container>
-                    <DataGrid TItem="operait.Documents.Alert" 
-                        Data="@alerts"
-                        SelectionMode="DataGridSelectionMode.Multiple"
-                        ShowCaptions=false>
+                    <DataGrid TItem="operait.Documents.Alert"
+                              Data="@alerts"
+                              SelectionMode="DataGridSelectionMode.Multiple"
+                              ShowCaptions=false>
                         <OverlayTemplate>
                             <Div Flex="Flex.JustifyContent.End.AlignItems.Center" Margin="Margin.Is3.FromBottom" Style="width:400px;background-color:white;">
                                 <Div Padding="Padding.Is2">
@@ -148,7 +148,7 @@
                                             ...
                                         </DropdownToggle>
                                         <DropdownMenu>
-                                            <DropdownItem>Add responder</DropdownItem>
+                                            <DropdownItem Clicked="@(() => ShowAddResponder(context))">Add responder</DropdownItem>
                                             <DropdownItem>Delete</DropdownItem>
                                         </DropdownMenu>
                                     </Dropdown>
@@ -201,10 +201,18 @@
     </Layout>
 </Container>
 
+<Modal @ref="addResponder">
+    <ModalContent>
+        <ModalHeader>
+            <ModalTitle>Add responder</ModalTitle>
+            <CloseButton/>
+        </ModalHeader>
+    </ModalContent>
+</Modal>
 
 <Modal @ref="createAlertRef">
     <ModalContent>
-                <ModalHeader>
+        <ModalHeader>
             <ModalTitle>Create alert</ModalTitle>
             <CloseButton />
         </ModalHeader>
@@ -234,14 +242,14 @@
             <Field>
                 <FieldLabel>Responders</FieldLabel>
                 <Autocomplete TItem="Responder"
-                            TValue="Responder"
-                            Data="@responders"
-                            TextField="@((item) => item.Name)"
-                            ValueField="@((item) => item)"
-                            SelectionMode="AutocompleteSelectionMode.Multiple"
-                            @bind-SelectedValues="selectedResponders"
-                            @bind-SelectedTexts="selectedRespondersNames">
-                            </Autocomplete>
+                              TValue="Responder"
+                              Data="@responders"
+                              TextField="@((item) => item.Name)"
+                              ValueField="@((item) => item)"
+                              SelectionMode="AutocompleteSelectionMode.Multiple"
+                              @bind-SelectedValues="selectedResponders"
+                              @bind-SelectedTexts="selectedRespondersNames">
+                </Autocomplete>
             </Field>
             <Field>
                 <FieldLabel>Tags</FieldLabel>
