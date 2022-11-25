@@ -1,0 +1,90 @@
+﻿@using operait.Documents
+
+<Modal @ref="addRotationRef">
+    <ModalContent Size="ModalSize.Large">
+        <ModalHeader>
+            <ModalTitle>Add rotation</ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+            <Field>
+                <FieldLabel>Name</FieldLabel>
+                <TextEdit @bind-Text="newRotation.Name"></TextEdit>
+            </Field>
+            <Field>
+                <FieldLabel>Participants</FieldLabel>
+                <Autocomplete TItem="TeamMember"
+                              TValue="TeamMember"
+                              Data="@(Team?.Members)"
+                              TextField="@((item) => item.Name)"
+                              ValueField="@((item) => item)"
+                              @bind-SelectedValues="newRotation.Participants"
+                              SelectionMode="AutocompleteSelectionMode.Multiple">
+                </Autocomplete>
+            </Field>
+            <Fields>
+                <Field>
+                    <FieldLabel>Rotation type</FieldLabel>
+                    <Select @bind-SelectedValue="@(newRotation.RotationType)" TValue="RotationType">
+                        <SelectItem Value="RotationType.Daily">Daily</SelectItem>
+                        <SelectItem Value="RotationType.Weekly">Weekly</SelectItem>
+                        <SelectItem Value="RotationType.Custom">Custom</SelectItem>
+                    </Select>
+                </Field>
+                <Field Visibility="@(newRotation.RotationType==RotationType.Custom?Visibility.Visible:Visibility.Invisible)">
+                    <FieldLabel>Shift length</FieldLabel>
+                    <Addons>
+                        <Addon AddonType="AddonType.Start">
+                            <NumericEdit TValue="int" Value="@(newRotation.ShiftLength)" ValueChanged="@((v) => newRotation.ShiftLength = v)"></NumericEdit>
+                        </Addon>
+                        <Addon AddonType="AddonType.End">
+                            <Select @bind-SelectedValue="@(newRotation.ShiftUnit)" TValue="ShiftUnit">
+                                <SelectItem Value="ShiftUnit.Hours">Hours</SelectItem>
+                                <SelectItem Value="ShiftUnit.Days">Days</SelectItem>
+                                <SelectItem Value="ShiftUnit.Weeks">Weeks</SelectItem>
+                            </Select>
+                        </Addon>
+                    </Addons>
+                </Field>
+            </Fields>
+            <Field>
+                <FieldLabel>Start on</FieldLabel>
+                <Fields>
+                    <Field>
+                        <DatePicker Date="@(newRotation.StartOnDate)" DateChanged="@((d) => newRotation.StartOnDate = d)" TValue="DateTime?"></DatePicker>
+                    </Field>
+                    <Field>
+                        <TimePicker Time="@(newRotation.StartOnTime)" TimeChanged="@((t) => newRotation.StartOnTime = t)" TValue="TimeSpan?"></TimePicker>
+                    </Field>
+                </Fields>
+            </Field>
+            <Field>
+                <Switch TValue="bool" @bind-Checked="@(newRotation.HasEndDate)">Ends on</Switch>
+            </Field>
+            <Field Display="@(newRotation.HasEndDate?Display.Block:Display.None)">
+                <Fields>
+                    <Field>
+                        <DatePicker Date="@(newRotation.EndDate)" DateChanged="@((d) => newRotation.EndDate = d)" TValue="DateTime?"></DatePicker>
+                    </Field>
+                    <Field>
+                        <TimePicker Time="@(newRotation.EndTime)" TimeChanged="@((t) => newRotation.EndTime = t)" TValue="TimeSpan?"></TimePicker>
+                    </Field>
+                </Fields>
+            </Field>
+            <Field>
+                <Switch TValue="bool" @bind-Checked="@(newRotation.RestrictToTimeIntervals)">Restrict to time intervals</Switch>
+            </Field>
+            @if (newRotation.RestrictToTimeIntervals)
+            {
+                <IntervalRestrictions TimeIntervalRestriction="newRotation.TimeIntervalRestriction">
+
+                </IntervalRestrictions>
+            }
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Secondary" Clicked="@CloseAddRotation">Cancel</Button>
+            <Button Color="Color.Primary" Clicked="@AddRotationCommand">Add</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+

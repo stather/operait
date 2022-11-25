@@ -12,7 +12,7 @@
             <BreadcrumbLink To="@($"/teams/oncall/{team?.Id}")">@team?.Name</BreadcrumbLink>
         </BreadcrumbItem>
     </Breadcrumb>
-    <Divider/>
+    <Divider />
     <Bar Breakpoint="Breakpoint.Desktop"
          Background="Background.Light"
          ThemeContrast="ThemeContrast.Light">
@@ -130,26 +130,76 @@
             <Row>
                 <Column ColumnSize="ColumnSize.IsHalf">
                     <Div Flex="Flex.JustifyContent.Start">
-                        @context.Name
+                        <Div>
+                            @context.Name
+                        </Div>
                     </Div>
                 </Column>
                 <Column ColumnSize="ColumnSize.IsHalf">
                     <Div Flex="Flex.JustifyContent.End">
-                        <Icon Name="IconName.AngleDown"/>
+                        <Div>
+                            <Icon Name="IconName.AngleDown" />
+                        </Div>
                     </Div>
                 </Column>
             </Row>
+            <Div Class="d-flex">
+                <Div>
+                    <Button Color="Color.Secondary" Size="Size.Small">Today</Button>
+                </Div>
+                <Div>
+                    <Button Color="Color.Secondary" Size="Size.Small"><Icon Name="IconName.ChevronLeft" /></Button>
+                </Div>
+                <Div>
+                    <Button Color="Color.Secondary" Size="Size.Small"><Icon Name="IconName.ChevronRight" /></Button>
+                </Div>
+                <Div Class="flex-grow-1">
+                    Nov xx - Dec cc
+                </Div>
+                <Div>
+                    <Button Color="Color.Secondary" Size="Size.Small">1 Day</Button>
+                </Div>
+                <Div>
+                    <Button Color="Color.Secondary" Size="Size.Small">1 Week</Button>
+                </Div>
+                <Div>
+                    <Button Color="Color.Secondary" Size="Size.Small">2 Weeks</Button>
+                </Div>
+                <Div>
+                    <Button Color="Color.Secondary" Size="Size.Small">1 Month</Button>
+                </Div>
+                <Div>
+                    <RadioGroup TValue="string" Name="CalendarType" Buttons>
+                        <Radio Size="Size.Small" Value="@("Calendar")">Calendar</Radio>
+                        <Radio Size="Size.Small" Value="@("Timeline")">Timeline</Radio>
+                    </RadioGroup>
+                </Div>
+            </Div>
+        </Div>
+        <Div Width="Width.Is100" Class="schedule-header d-flex">
+            <Div>Rotations</Div>
+            <Div>
+                <Button Clicked="@(() => ShowAddRotation(context))">+ Add rotation</Button>
+            </Div>
+        </Div>
+        <Div Width="Width.Is100" Class="d-flex">
+            <Div Style="max-width:120px;min-width:65px">col1</Div>
+            <Repeater Context="d" Items="TimelineColumns">
+                <Div Class="flex-fill">@d</Div>
+            </Repeater>
         </Div>
     </Repeater>
 </Container>
 
+<AddRotation @ref="addRotationRef" Team="team">
 
+</AddRotation>
 
 <Modal @ref="@addRoutingRuleRef">
     <ModalContent Centered Size="ModalSize.Large">
         <ModalHeader>
             <ModalTitle>Add routing rule</ModalTitle>
-            <CloseButton/>
+            <CloseButton />
         </ModalHeader>
         <ModalBody>
             <Field>
@@ -164,37 +214,37 @@
                     <SelectItem Value="@(operait.Documents.RoutingMatch.AllConditions)">Match all conditions below</SelectItem>
                 </Select>
             </Field>
-                @if (RoutingMatchSelected != operait.Documents.RoutingMatch.AllAlerts)
-                {
+            @if (RoutingMatchSelected != operait.Documents.RoutingMatch.AllAlerts)
+            {
                 <Repeater Items="AddedConditions">
                     <Fields>
-                    <Field>
+                        <Field>
                             <Select TValue="RoutingItem" @bind-SelectedValue="@(context.Item)">
                                 <Repeater Context="c2" Items="@((RoutingItem[])(Enum.GetValues(typeof(RoutingItem))))">
-                                <SelectItem Value="@c2">@c2.ToString()</SelectItem>
+                                    <SelectItem Value="@c2">@c2.ToString()</SelectItem>
                                 </Repeater>
                             </Select>
-                    </Field>
-                    <Field>
+                        </Field>
+                        <Field>
                             <Select TValue="bool" @bind-SelectedValue="@(context.NotCondition)">
-                            <SelectItem Value="false">--</SelectItem>
-                            <SelectItem Value="true">NOT</SelectItem>
-                        </Select>
-                    </Field>
-                    <Field>
+                                <SelectItem Value="false">--</SelectItem>
+                                <SelectItem Value="true">NOT</SelectItem>
+                            </Select>
+                        </Field>
+                        <Field>
                             <Select TValue="ConditionOperator" @bind-SelectedValue="@(context.Operator)">
-                            <Repeater Context="c3" Items="@(RoutingCondition.AllowedOperators[context.Item])">
-                                <SelectItem Value="c3">@c3.ToString()</SelectItem>
-                            </Repeater>
-                        </Select>
-                    </Field>
-                    <Field>
-                        <TextEdit></TextEdit>
-                    </Field>
-                    <Field>
-                        <Button>X</Button>
-                    </Field>
-                </Fields>
+                                <Repeater Context="c3" Items="@(RoutingCondition.AllowedOperators[context.Item])">
+                                    <SelectItem Value="c3">@c3.ToString()</SelectItem>
+                                </Repeater>
+                            </Select>
+                        </Field>
+                        <Field>
+                            <TextEdit></TextEdit>
+                        </Field>
+                        <Field>
+                            <Button>X</Button>
+                        </Field>
+                    </Fields>
                 </Repeater>
                 <Field>
                     <Button Clicked="AddCondition">+ Add new condition</Button>
@@ -205,63 +255,9 @@
             </Field>
             @if (restrictIntervals)
             {
-                <Field>
-                    <RadioGroup TValue="TimeIntervalRestriction" @bind-CheckedValue="@(RestrictionType)">
-                        <Radio Value="@(TimeIntervalRestriction.TimeOfDay)">Time of day</Radio>
-                        <Radio Value="@(TimeIntervalRestriction.WeekdayAndTimeOfDay)">Weekday and time of day</Radio>
-                    </RadioGroup>
-                </Field>
-                @if (RestrictionType == TimeIntervalRestriction.TimeOfDay)
-                {
-                    <Fields>
-                        <Field>
-                            <FieldLabel>Start time</FieldLabel>
-                            <TimePicker TimeAs24hr="@true" TValue="TimeSpan" Time="@startTime" TimeChanged="@StartTimeChanged" />
-                        </Field>
-                        <Field>
-                            <FieldLabel>End time</FieldLabel>
-                            <TimePicker TimeAs24hr="@true" TValue="TimeSpan" Time="@endTime" TimeChanged="@EndTimeChanged" />
-                        </Field>
-                    </Fields>
-                }
-                @if (RestrictionType == TimeIntervalRestriction.WeekdayAndTimeOfDay)
-                {
-                    <Repeater Context="c4" Items="intervals">
-                        <Fields>
-                            <Field>
-                                <Select TValue="DayOfWeek" @bind-SelectedValue="@(c4.FromDay)">
-                                    <SelectItem Value="@(DayOfWeek.Monday)">Monday</SelectItem>
-                                    <SelectItem Value="@(DayOfWeek.Tuesday)">Tuesday</SelectItem>
-                                    <SelectItem Value="@(DayOfWeek.Wednesday)">Wednesday</SelectItem>
-                                    <SelectItem Value="@(DayOfWeek.Thursday)">Thursday</SelectItem>
-                                    <SelectItem Value="@(DayOfWeek.Friday)">Friday</SelectItem>
-                                    <SelectItem Value="@(DayOfWeek.Saturday)">Saturday</SelectItem>
-                                    <SelectItem Value="@(DayOfWeek.Sunday)">Sunday</SelectItem>
-                                </Select>
-                            </Field>
-                            <Field>
-                                <TimePicker TimeAs24hr="@true" TValue="DateTime" Time="@(c4.FromTime)" TimeChanged="@((t) => c4.FromTime = t)" />
-                            </Field>
-                            <Field>
-                                <Select TValue="DayOfWeek" @bind-SelectedValue="@(c4.ToDay)">
-                                        <SelectItem Value="@(DayOfWeek.Monday)">Monday</SelectItem>
-                                            <SelectItem Value="@(DayOfWeek.Tuesday)">Tuesday</SelectItem>
-                                            <SelectItem Value="@(DayOfWeek.Wednesday)">Wednesday</SelectItem>
-                                            <SelectItem Value="@(DayOfWeek.Thursday)">Thursday</SelectItem>
-                                            <SelectItem Value="@(DayOfWeek.Friday)">Friday</SelectItem>
-                                            <SelectItem Value="@(DayOfWeek.Saturday)">Saturday</SelectItem>
-                                            <SelectItem Value="@(DayOfWeek.Sunday)">Sunday</SelectItem>
-                                        </Select>
-                                    </Field>
-                                    <Field>
-                                        <TimePicker TimeAs24hr="@true" TValue="DateTime" Time="@(c4.ToTime)" TimeChanged="@((t) => c4.ToTime = t)" />
-                                    </Field>
-                                    <Field>
-                                        <Button>X</Button>
-                                    </Field>
-                                </Fields>
-                    </Repeater>
-                    <Button Clicked="@AddNewInterval">+ Add new interval</Button>
+                <IntervalRestrictions>
+
+                </IntervalRestrictions>
                 }
             }
             <Field>
@@ -295,7 +291,7 @@
     <ModalContent Centered>
         <ModalHeader>
             <ModalTitle>Add schedule</ModalTitle>
-            <CloseButton/>
+            <CloseButton />
         </ModalHeader>
         <ModalBody>
             <Field>
