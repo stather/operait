@@ -1,0 +1,13 @@
+﻿
+<Div Class="d-flex">
+    <Repeater Context="d" Items="TimelineColumns">
+        <Div Class="flex-fill" Border="Border.OnStart.Light">
+            <Div Style="height:30px" Class="flex-fill" Border="Border.OnBottom.Light">@d</Div>
+            <Repeater Context="rotation" Items="Schedule.Rotations">
+                <Div Style="height:30px" Class="flex-fill" Border="Border.OnBottom.Light"></Div>
+            </Repeater>
+            <Div Style="height:30px" Class="flex-fill" Border="Border.OnBottom.Light"></Div>
+        </Div>
+    </Repeater>
+</Div>
+

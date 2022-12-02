@@ -23,13 +23,6 @@ using operait.Modals;
 
 namespace operait.Pages.Teams
 {
-    public enum ViewPeriod
-    {
-        day,
-        week,
-        twoweek,
-        month
-    }
 
     public partial class OnCall
     {
@@ -60,6 +53,8 @@ namespace operait.Pages.Teams
         private Schedule selectedSchedule;
         private Rotation newRotation = new Rotation();
         private List<string> TimelineColumns = new List<string>();
+        private ViewPeriod ViewPeriod = ViewPeriod.Week;
+        private DateTime StartDay;
         #endregion
 
         [Inject]
@@ -68,16 +63,10 @@ namespace operait.Pages.Teams
         protected override async Task OnInitializedAsync()
         {
             team = await DatabaseService.GetTeamAsync(teamId);
-            var today = DateTime.Today;
-            while (today.DayOfWeek != DayOfWeek.Monday)
+            StartDay = DateTime.Today;
+            while (StartDay.DayOfWeek != DayOfWeek.Monday)
             {
-                today = today.AddDays(-1);
-            }
-            for (int i = 0; i < 7; i++)
-            {
-                var s = today.ToString("dd/MM ddd");
-                TimelineColumns.Add(s);
-                today = today.AddDays(1);
+                StartDay = StartDay.AddDays(-1);
             }
         }
 

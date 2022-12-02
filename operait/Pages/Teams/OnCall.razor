@@ -183,9 +183,53 @@
             </Div>
         </Div>
         <Div Width="Width.Is100" Class="d-flex">
-            <Div Style="max-width:120px;min-width:65px">col1</Div>
+            <Div Style="max-width:120px;min-width:65px">
+                <Div Style="height:30px" Border="Border.OnBottom.Light"></Div>
+                <Repeater Context="rotation" Items="@(context.Rotations)">
+                    <Div Style="height:30px" Border="Border.OnBottom.Light">@rotation.Name</Div>
+                </Repeater>
+                <Div Style="height:30px"></Div>
+                <Div Class="position-absolute start-100" Style="width:10px;height:10px;"></Div>
+            </Div>
+            <Div Class="flex-grow-1" Style="position:relative;">
+                <RotationHeader Schedule="context" StartDate="StartDay" ViewPeriod="ViewPeriod"></RotationHeader>
+                <Repeater Context="rotation" Items="@(context.Rotations)">
+                    <Timeline Rotation="rotation" Team="team" ViewPeriod="ViewPeriod">
+
+                    </Timeline>
+                </Repeater>
+            </Div>
+        </Div>
+        <Div Width="Width.Is100" Class="schedule-header d-flex">
+            <Div>Overrides</Div>
+            <Div>
+                <Button Clicked="@(() => ShowAddRotation(context))">+ Add override</Button>
+            </Div>
+            <Div>
+                <Button Clicked="@(() => ShowAddRotation(context))">Take on-call for an hour</Button>
+            </Div>
+        </Div>
+        <Div Width="Width.Is100" Class="d-flex">
+            <Div Style="max-width:120px;min-width:65px">
+                <Div Style="height:30px"></Div>
+                <Div Style="height:30px">Rota1</Div>
+                <Div Style="height:30px"></Div>
+            </Div>
             <Repeater Context="d" Items="TimelineColumns">
-                <Div Class="flex-fill">@d</Div>
+                <Div Class="flex-fill" Border="Border.OnStart.Light">@d</Div>
+            </Repeater>
+        </Div>
+        <Div Width="Width.Is100" Class="schedule-header d-flex">
+            <Div>Final schedule</Div>
+        </Div>
+        <Div Width="Width.Is100" Class="d-flex">
+            <Div Style="max-width:120px;min-width:65px">
+                <Div Style="height:30px"></Div>
+                <Div Style="height:30px">Rota1's final</Div>
+                <Div Style="height:30px"></Div>
+            </Div>
+            <Repeater Context="d" Items="TimelineColumns">
+                <Div Class="flex-fill" Border="Border.OnStart.Light">@d</Div>
             </Repeater>
         </Div>
     </Repeater>
@@ -258,7 +302,7 @@
                 <IntervalRestrictions>
 
                 </IntervalRestrictions>
-                }
+            }
             }
             <Field>
                 <FieldLabel>Then route using escalation/schedule</FieldLabel>
