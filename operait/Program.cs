@@ -2,7 +2,10 @@ using Blazorise;
 using Blazorise.Bootstrap5;
 using Blazorise.Icons.FontAwesome;
 using FeatureHubSDK;
+using MediatR;
+using operait.Application.Commands;
 using operait.Services;
+using System.Reflection;
 
 namespace operait
 {
@@ -34,6 +37,8 @@ namespace operait
                 config.Init();
                 return config;
             });
+
+            builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
             var app = builder.Build();
             var ifh = app.Services.GetService<IFeatureHubConfig>();

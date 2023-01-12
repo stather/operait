@@ -20,6 +20,8 @@ using operait.Services;
 using operait.Documents;
 using operait.CustomControls;
 using operait.Modals;
+using MediatR;
+using operait.Application.Commands;
 
 namespace operait.Pages.Teams
 {
@@ -59,6 +61,8 @@ namespace operait.Pages.Teams
 
         [Inject]
         protected DatabaseService DatabaseService { get; set; }
+        [Inject]
+        protected IMediator mediator { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -103,14 +107,14 @@ namespace operait.Pages.Teams
 
         async Task AddSchedule()
         {
-            var s = new Schedule
+            var command = new AddScheduleCommand
             {
                 Name = scheduleName,
                 Description = scheduleDescription,
-                Enabled = true
+                Enabled = true,
+                TeamId= teamId,
             };
-            team.Schedules.Add(s);
-            await DatabaseService.UpdateTeamAsync(team);
+            var commandResult = await mediator.Send(command);
         }
 
         Task ShowAddRotation(Schedule schedule)
