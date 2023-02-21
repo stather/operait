@@ -1,0 +1,274 @@
+﻿@page "/alert/list"
+@page "/"
+
+@using operait.Documents
+<Container>
+    <Bar Breakpoint="Breakpoint.Desktop"
+         Background="Background.Light"
+         ThemeContrast="ThemeContrast.Light">
+        <BarBrand>Alerts</BarBrand>
+        <BarMenu>
+            <BarStart>
+
+            </BarStart>
+            <BarEnd>
+                <BarItem>
+                    <Button Color="Color.Primary" Clicked="@ShowCreateAlert">Create Alert</Button>
+                </BarItem>
+                <BarItem>
+                    <BarDropdown>
+                        <BarDropdownToggle Color="Color.Secondary">
+                            ...
+                        </BarDropdownToggle>
+                        <BarDropdownMenu>
+                            <BarDropdownItem>Ack All</BarDropdownItem>
+                            <BarDropdownItem>Close All</BarDropdownItem>
+                        </BarDropdownMenu>
+                    </BarDropdown>
+                </BarItem>
+            </BarEnd>
+        </BarMenu>
+    </Bar>
+    <Div Class="d-flex">
+        <Div Class="flex-grow-1">
+            <TextEdit Placeholder="Search" />
+        </Div>
+        <Div>
+            <Button>Search</Button>
+        </Div>
+        <Div>
+            <Button>Save</Button>
+        </Div>
+        <Div>
+            <Button>...</Button>
+        </Div>
+    </Div>
+    <Div Class="d-flex">
+        <Div>
+            <Switch TValue="bool">See all alerts</Switch>
+        </Div>
+        <Div Class="flex-grow-1">
+            <Check TValue="bool">Select</Check>
+        </Div>
+        <Div>
+            <Select TValue="string">
+                <SelectItem Value="@("LastHour")">Last Hour</SelectItem>
+                <SelectItem Value="@("LastHour")">Last Day</SelectItem>
+                <SelectItem Value="@("LastHour")">Last Week</SelectItem>
+                <SelectItem Value="@("LastHour")">Last Month</SelectItem>
+                <SelectItem Value="@("LastHour")">Last Year</SelectItem>
+                <SelectItem Value="@("LastHour")">All Time</SelectItem>
+                <SelectItem Value="@("LastHour")">Custom Range</SelectItem>
+            </Select>
+        </Div>
+        <Div>
+            <Dropdown>
+                <DropdownToggle><Icon Name="@(IconName.SliderHorizontal)" /></DropdownToggle>
+                <DropdownMenu>
+                    <DropdownHeader>SORT OPTION</DropdownHeader>
+                    <DropdownItem>Created</DropdownItem>
+                    <DropdownItem>Occurred</DropdownItem>
+                    <DropdownHeader>VIEW OPTION</DropdownHeader>
+                    <DropdownItem>Comfort view</DropdownItem>
+                    <DropdownItem>Cozy view</DropdownItem>
+                    <DropdownItem>Lite view</DropdownItem>
+                    <DropdownHeader>EXPORT OPTION</DropdownHeader>
+                    <DropdownItem><Div Class="d-flex"><Div Class="flex-grow-1">Export CSV</Div><Div><Icon Name="@(IconName.Download)" /></Div></Div> </DropdownItem>
+                </DropdownMenu>
+            </Dropdown>
+        </Div>
+    </Div>
+    <Layout Sider>
+        <LayoutSider>
+            <LayoutSiderContent>
+                <Bar Mode="BarMode.VerticalInline"
+                     CollapseMode="BarCollapseMode.Small"
+                     Breakpoint="Breakpoint.Desktop"
+                     NavigationBreakpoint="Breakpoint.Tablet"
+                     ThemeContrast="ThemeContrast.Light">
+                    <BarBrand>
+                        <BarItem>
+                            <BarLink To="#">
+                                <BarIcon IconName="IconName.Dashboard" />
+                                Saved searches
+                            </BarLink>
+                        </BarItem>
+                    </BarBrand>
+                    <BarMenu>
+                        <BarStart>
+                            <BarItem>
+                                <BarDropdown>
+                                    <BarDropdownToggle>
+                                        <BarIcon IconName="IconName.Edit" />
+                                        PREDEFINED
+                                    </BarDropdownToggle>
+                                    <BarDropdownMenu>
+                                        <BarDropdownItem>All</BarDropdownItem>
+                                        <BarDropdownItem>Open</BarDropdownItem>
+                                        <BarDropdownItem>Closed</BarDropdownItem>
+                                        <BarDropdownItem>Un'Acked'</BarDropdownItem>
+                                        <BarDropdownItem>Not seen</BarDropdownItem>
+                                        <BarDropdownItem>Assigned to me</BarDropdownItem>
+                                    </BarDropdownMenu>
+                                </BarDropdown>
+                            </BarItem>
+                            <BarItem>
+                                <BarDropdown>
+                                    <BarDropdownToggle>
+                                        <BarIcon IconName="IconName.Edit" />
+                                        CREATED BY ME
+                                    </BarDropdownToggle>
+                                    <BarDropdownMenu>
+                                    </BarDropdownMenu>
+                                </BarDropdown>
+                            </BarItem>
+                        </BarStart>
+                    </BarMenu>
+                </Bar>
+            </LayoutSiderContent>
+        </LayoutSider>
+        <Layout>
+            <LayoutContent>
+                <Container>
+                    <DataGrid TItem="operait.Documents.Alert"
+                              Data="@alerts"
+                              SelectionMode="DataGridSelectionMode.Multiple"
+                              RowClicked="@((a) => AlertDetail(a.Item))"
+                              ShowCaptions=false>
+                        <RowOverlayTemplate>
+                            <Div Flex="Flex.JustifyContent.End.AlignItems.Center" Margin="Margin.Is3.FromBottom" Style="width:400px;background-color:white;">
+                                <Div Padding="Padding.Is2">
+                                    <Button Size="Size.Small" Color="Color.Secondary" onclick="event.stopPropagation();">Ack</Button>
+                                </Div>
+                                <Div Padding="Padding.Is2">
+                                    <Button Size="Size.Small" Color="Color.Secondary" onclick="event.stopPropagation();">Close</Button>
+                                </Div>
+                                <Div Padding="Padding.Is2" @onclick:stopPropagation="true" Overflow="Overflow.Visible">
+                                    <Dropdown Style="z-index:2000;">
+                                        <DropdownToggle Size="Size.Small" Clicked="ToggleClicked">
+                                            ...
+                                        </DropdownToggle>
+                                        <DropdownMenu>
+                                            <DropdownItem Clicked="@(() => ShowAddResponder(context))">Add responder</DropdownItem>
+                                            <DropdownItem>Delete</DropdownItem>
+                                        </DropdownMenu>
+                                    </Dropdown>
+                                </Div>
+                            </Div>
+                        </RowOverlayTemplate>
+                        <DataGridColumns>
+                            <DataGridMultiSelectColumn Width="30px"></DataGridMultiSelectColumn>
+                            <DataGridColumn Field="@nameof(operait.Documents.Alert.TinyId)" Width="30px">
+                                <DisplayTemplate>
+                                    @{
+                                        <span>#</span>
+                                        @context.TinyId
+                                    }
+                                </DisplayTemplate>
+                            </DataGridColumn>
+                            <DataGridColumn Field="@nameof(operait.Documents.Alert.DeduplicationCounter)" Width="30px">
+                                <DisplayTemplate>
+                                    @{
+                                        <span>x</span>
+                                        @context.DeduplicationCounter
+                                    }
+                                </DisplayTemplate>
+                            </DataGridColumn>
+                            <DataGridColumn Field="@nameof(operait.Documents.Alert.Priority)" Width="30px" CellClass="@((item) => item.Priority.ToString())">
+                                <DisplayTemplate>
+                                    @{
+                                        <Div Class="@(context.Priority.ToString())"><span>P</span>@((int)context.Priority)</Div>
+                                    }
+                                </DisplayTemplate>
+                            </DataGridColumn>
+                            <DataGridColumn Field="@nameof(operait.Documents.Alert.AlertMessage)">
+
+                            </DataGridColumn>
+                            <DataGridColumn Field="@nameof(operait.Documents.Alert.CreatedAt)" Width="300px">
+                                <DisplayTemplate>
+                                    @(context.CreatedAt.ToString("MMM d, yyyy h:mm tt ('GMT' zzz)"))
+                                </DisplayTemplate>
+                            </DataGridColumn>
+                            <DataGridColumn Field="@nameof(operait.Documents.Alert.Status)" CellClass="@((item) => $"AlertStatus_{item.Priority.ToString()}")" Width="60px">
+                                <DisplayTemplate>
+                                    @(context.Status)
+                                </DisplayTemplate>
+                            </DataGridColumn>
+                        </DataGridColumns>
+                    </DataGrid>
+                </Container>
+            </LayoutContent>
+        </Layout>
+    </Layout>
+</Container>
+
+<Modal @ref="addResponder">
+    <ModalContent>
+        <ModalHeader>
+            <ModalTitle>Add responder</ModalTitle>
+            <CloseButton/>
+        </ModalHeader>
+    </ModalContent>
+</Modal>
+
+<Modal @ref="createAlertRef">
+    <ModalContent>
+        <ModalHeader>
+            <ModalTitle>Create alert</ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+            <Field>
+                <FieldLabel>API integration</FieldLabel>
+                <Select TValue="string" @bind-SelectedValue="selectedIntegration">
+                    <Repeater Items="@(apis)">
+                        <SelectItem Value="@(context.Id)">@context.Name</SelectItem>
+                    </Repeater>
+                </Select>
+            </Field>
+            <Field>
+                <FieldLabel>Alert message</FieldLabel>
+                <MemoEdit @bind-Text="@alertMessage"></MemoEdit>
+            </Field>
+            <Field>
+                <FieldLabel>Priority</FieldLabel>
+                <Select TValue="AlertPriority" @bind-SelectedValue="selectedPriority">
+                    <SelectItem Value="@(AlertPriority.P1_Critical)">P1-Critical</SelectItem>
+                    <SelectItem Value="@(AlertPriority.P2_High)">P2-High</SelectItem>
+                    <SelectItem Value="@(AlertPriority.P3_Moderate)">P3-Moderate</SelectItem>
+                    <SelectItem Value="@(AlertPriority.P4_Low)">P4-Low</SelectItem>
+                    <SelectItem Value="@(AlertPriority.P5_Informational)">P5-Informational</SelectItem>
+                </Select>
+            </Field>
+            <Field>
+                <FieldLabel>Responders</FieldLabel>
+                <Autocomplete TItem="Responder"
+                              TValue="Responder"
+                              Data="@responders"
+                              TextField="@((item) => item.Name)"
+                              ValueField="@((item) => item)"
+                              SelectionMode="AutocompleteSelectionMode.Multiple"
+                              @bind-SelectedValues="selectedResponders"
+                              @bind-SelectedTexts="selectedRespondersNames">
+                </Autocomplete>
+            </Field>
+            <Field>
+                <FieldLabel>Tags</FieldLabel>
+                <Autocomplete TItem="Tag"
+                              TValue="string"
+                              Data="@tags"
+                              TextField="@((item) => item.Name)"
+                              ValueField="@((item) => item.Id)"
+                              SelectionMode="AutocompleteSelectionMode.Multiple"
+                              @bind-SelectedValues="selectedTagIds"
+                              @bind-SelectedTexts="selectedTagNames"
+                              FreeTyping>
+                </Autocomplete>
+            </Field>
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Secondary" Clicked="@HideCreateAlert">Cancel</Button>
+            <Button Color="Color.Primary" Clicked="@CreateAlert">Create</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>

@@ -1,0 +1,79 @@
+﻿@using FeatureHubSDK;
+@inherits LayoutComponentBase
+
+@inject IFeatureHubConfig config
+
+<PageTitle>operait</PageTitle>
+
+<Layout>
+    <TopMenu />
+    <Layout Sider>
+        <LayoutSider>
+            <LayoutSiderContent>
+                <Bar Mode="BarMode.VerticalInline"
+                     CollapseMode="BarCollapseMode.Small"
+                     Breakpoint="Breakpoint.Desktop"
+                     NavigationBreakpoint="Breakpoint.Tablet"
+                     ThemeContrast="ThemeContrast.Dark">
+                    <BarMenu>
+                        <BarStart>
+                            <BarItem>
+                                <BarLink>On-call</BarLink>
+                            </BarItem>
+                            <BarItem>
+                                <BarLink>Integrations</BarLink>
+                            </BarItem>
+                            <FeatureHubFlag Feature="heartbeats">
+                                <BarItem>
+                                    <BarLink>Heartbeats</BarLink>
+                                </BarItem>
+                            </FeatureHubFlag>
+                            <FeatureHubFlag Feature="services">
+                                <BarItem>
+                                    <BarLink>Services</BarLink>
+                                </BarItem>
+                            </FeatureHubFlag>
+                            <FeatureHubFlag Feature="incidentrules">
+                                <BarItem>
+                                    <BarLink>Incident rules</BarLink>
+                                </BarItem>
+                            </FeatureHubFlag>
+                            <BarItem>
+                                <BarLink>Members</BarLink>
+                            </BarItem>
+                            <FeatureHubFlag Feature="roles>">
+                                <BarItem>
+                                    <BarLink>Roles</BarLink>
+                                </BarItem>
+                            </FeatureHubFlag>
+                            <FeatureHubFlag Feature="policies">
+                                <BarItem>
+                                    <BarLink>Policies</BarLink>
+                                </BarItem>
+                            </FeatureHubFlag>
+                            <FeatureHubFlag Feature="conferences">
+                                <BarItem>
+                                    <BarLink>Conferences</BarLink>
+                                </BarItem>
+                            </FeatureHubFlag>
+                            <BarItem>
+                                <BarLink>Activity stream</BarLink>
+                            </BarItem>
+                            <FeatureHubFlag Feature="actions">
+                                <BarItem>
+                                    <BarLink>Actions</BarLink>
+                                </BarItem>
+                            </FeatureHubFlag>
+                        </BarStart>
+                    </BarMenu>
+                </Bar>
+            </LayoutSiderContent>
+        </LayoutSider>
+        <Layout>
+            <LayoutContent>
+                @Body
+            </LayoutContent>
+        </Layout>
+    </Layout>
+
+</Layout>

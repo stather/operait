@@ -1,0 +1,75 @@
+﻿@using operait.Documents
+
+<Div Border="Border.Rounded.Is1">
+    <RadioGroup @bind-CheckedValue="TimeIntervalRestriction.RestrictionType" TValue="TimeIntervalRestrictionType">
+        <Radio Value="TimeIntervalRestrictionType.TimeOfDay">Time of day</Radio>
+        <Radio Value="TimeIntervalRestrictionType.WeekdayAndTimeOfDay">Weekday and time of day</Radio>
+    </RadioGroup>
+    <Divider />
+    @if(TimeIntervalRestriction.RestrictionType == TimeIntervalRestrictionType.TimeOfDay)
+    {
+    <Fields>
+                <Field Horizontal>
+                    <FieldLabel ColumnSize="ColumnSize.IsAuto">Start time:</FieldLabel>
+                    <FieldBody ColumnSize="ColumnSize.IsAuto">
+                        <TimePicker Time="@(TimeIntervalRestriction.IntervalStart)" TimeChanged="@((t) => TimeIntervalRestriction.IntervalStart = t)" TValue="TimeSpan?"></TimePicker>
+                    </FieldBody>
+                </Field>
+                <Field Horizontal>
+                    <FieldLabel ColumnSize="ColumnSize.IsAuto">End time:</FieldLabel>
+                    <FieldBody ColumnSize="ColumnSize.IsAuto">
+                        <TimePicker Time="@(TimeIntervalRestriction.IntervalEnd)" TimeChanged="@((t) => TimeIntervalRestriction.IntervalEnd = t)" TValue="TimeSpan?"></TimePicker>
+                    </FieldBody>
+                </Field>
+            </Fields>
+    }
+    @if (TimeIntervalRestriction.RestrictionType == TimeIntervalRestrictionType.WeekdayAndTimeOfDay)
+    {
+        <Repeater Context="c4" Items="TimeIntervalRestriction.Intervals">
+            <Fields>
+                <Field>
+                    <Select TValue="DayOfWeek" @bind-SelectedValue="@(c4.FromDay)">
+                        <SelectItem Value="@(DayOfWeek.Monday)">Monday</SelectItem>
+                        <SelectItem Value="@(DayOfWeek.Tuesday)">Tuesday</SelectItem>
+                        <SelectItem Value="@(DayOfWeek.Wednesday)">Wednesday</SelectItem>
+                        <SelectItem Value="@(DayOfWeek.Thursday)">Thursday</SelectItem>
+                        <SelectItem Value="@(DayOfWeek.Friday)">Friday</SelectItem>
+                        <SelectItem Value="@(DayOfWeek.Saturday)">Saturday</SelectItem>
+                        <SelectItem Value="@(DayOfWeek.Sunday)">Sunday</SelectItem>
+                    </Select>
+                </Field>
+                <Field>
+                    <TimePicker TimeAs24hr="@true" TValue="TimeSpan?" Time="@(c4.FromTime)" TimeChanged="@((t) => c4.FromTime = t)" />
+                </Field>
+                <Field>
+                    <Select TValue="DayOfWeek" @bind-SelectedValue="@(c4.ToDay)">
+                        <SelectItem Value="@(DayOfWeek.Monday)">Monday</SelectItem>
+                        <SelectItem Value="@(DayOfWeek.Tuesday)">Tuesday</SelectItem>
+                        <SelectItem Value="@(DayOfWeek.Wednesday)">Wednesday</SelectItem>
+                        <SelectItem Value="@(DayOfWeek.Thursday)">Thursday</SelectItem>
+                        <SelectItem Value="@(DayOfWeek.Friday)">Friday</SelectItem>
+                        <SelectItem Value="@(DayOfWeek.Saturday)">Saturday</SelectItem>
+                        <SelectItem Value="@(DayOfWeek.Sunday)">Sunday</SelectItem>
+                    </Select>
+                </Field>
+                <Field>
+                    <TimePicker TimeAs24hr="@true" TValue="TimeSpan?" Time="@(c4.ToTime)" TimeChanged="@((t) => c4.ToTime = t)" />
+                </Field>
+                <Field>
+                    <Button>X</Button>
+                </Field>
+            </Fields>
+        </Repeater>
+        <Button Clicked="@AddNewInterval">+ Add new interval</Button>
+    }
+</Div>
+
+@code {
+    [Parameter] public TimeIntervalRestriction TimeIntervalRestriction { get; set; }
+
+    void AddNewInterval()
+    {
+        TimeIntervalRestriction.Intervals.Add(new ShiftInterval { FromDay = DayOfWeek.Monday, FromTime = TimeSpan.Zero, ToDay = DayOfWeek.Monday, ToTime = TimeSpan.Zero });
+    }
+
+}

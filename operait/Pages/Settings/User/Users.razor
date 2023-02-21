@@ -1,0 +1,165 @@
+﻿@page "/settings/user/users"
+
+@layout SidebarLayout
+
+<Container>
+    <Bar Breakpoint="Breakpoint.Desktop"
+         Background="Background.Light"
+         ThemeContrast="ThemeContrast.Light">
+        <BarBrand>Users</BarBrand>
+        <BarMenu>
+            <BarStart>
+
+            </BarStart>
+            <BarEnd>
+                <BarItem>
+                    <Button Color="Color.Primary" Clicked="@ShowAddUser">Add user</Button>
+                </BarItem>
+                <BarItem>
+                    <BarDropdown>
+                        <BarDropdownToggle Color="Color.Secondary">
+                            ...
+                        </BarDropdownToggle>
+                        <BarDropdownMenu>
+                            <BarDropdownItem>Deleted users</BarDropdownItem>
+                        </BarDropdownMenu>
+                    </BarDropdown>
+                </BarItem>
+            </BarEnd>
+        </BarMenu>
+    </Bar>
+    <Row>
+        <Column ColumnSize="ColumnSize.Is3">
+            <Addons>
+                <Addon AddonType="AddonType.Body">
+                    <TextEdit Placeholder="Search" />
+                </Addon>
+                <Addon AddonType="AddonType.End">
+                    <Button Color="Color.Secondary">Search</Button>
+                </Addon>
+            </Addons>
+        </Column>
+    </Row>
+    <Divider />
+    <Layout Sider>
+        <LayoutSider>
+            <LayoutSiderContent>
+                <Bar Mode="BarMode.VerticalInline"
+                     CollapseMode="BarCollapseMode.Small"
+                     Breakpoint="Breakpoint.Desktop"
+                     NavigationBreakpoint="Breakpoint.Tablet"
+                     ThemeContrast="ThemeContrast.Light">
+                    <BarBrand>
+                        <BarItem>
+                            <BarLink To="#">
+                                <BarIcon IconName="IconName.Dashboard" />
+                                Saved Searches
+                            </BarLink>
+                        </BarItem>
+                    </BarBrand>
+                    <BarMenu>
+                        <BarStart>
+                            <BarItem>
+                                <BarDropdown>
+                                    <BarDropdownToggle>
+                                        <BarIcon IconName="IconName.Edit" />
+                                        Predefined
+                                    </BarDropdownToggle>
+                                    <BarDropdownMenu>
+                                        <BarDropdownItem>All users</BarDropdownItem>
+                                        <BarDropdownItem>Active users</BarDropdownItem>
+                                        <BarDropdownItem>Unverified users</BarDropdownItem>
+                                        <BarDropdownItem>Owners</BarDropdownItem>
+                                        <BarDropdownItem>Admins</BarDropdownItem>
+                                        <BarDropdownItem>Responders</BarDropdownItem>
+                                        <BarDropdownItem>Stakeholders</BarDropdownItem>
+                                    </BarDropdownMenu>
+                                </BarDropdown>
+                            </BarItem>
+                        </BarStart>
+                    </BarMenu>
+                </Bar>
+            </LayoutSiderContent>
+        </LayoutSider>
+        <Layout>
+            <LayoutContent>
+                <Container>
+                    <DataGrid TItem="operait.Documents.User"
+                              Data="@userList"
+                              @bind-SelectedRow="@selectedUser"
+                              Responsive Editable EditMode="DataGridEditMode.Inline" ShowPager CommandMode="DataGridCommandMode.ButtonRow" RowUpdated="(a) => UserUpdated(a.Item)">
+                        <DataGridColumns>
+                            <DataGridCommandColumn>
+                                <SaveCommandTemplate>
+                                    <Button ElementId="btnSave" Type="ButtonType.Submit" PreventDefaultOnSubmit Color="Color.Primary" Clicked="@context.Clicked">@context.LocalizationString</Button>
+                                </SaveCommandTemplate>
+                                <CancelCommandTemplate>
+                                    <Button ElementId="btnCancel" Color="Color.Secondary" Clicked="@context.Clicked">@context.LocalizationString</Button>
+                                </CancelCommandTemplate>
+                            </DataGridCommandColumn>
+                            <DataGridColumn Field="@nameof(operait.Documents.User.Name)" Caption="Name" Editable />
+                            <DataGridColumn Field="@nameof(operait.Documents.User.Email)" Caption="Email" Editable />
+                            <DataGridColumn Field="@nameof(operait.Documents.User.Role)" Caption="Role" Editable>
+                                <EditTemplate>
+                                    <Select TValue="string" SelectedValue="@((string)context.CellValue)" SelectedValueChanged="@( v => context.CellValue = v)">
+                                        <SelectGroup Label="RESPONDER ROLES">
+                                            <SelectItem Value=@("owner")>Owner</SelectItem>
+                                            <SelectItem Value=@("admin")>Admin</SelectItem>
+                                            <SelectItem Value=@("user")>User</SelectItem>
+                                        </SelectGroup>
+                                        <SelectGroup Label="OBSERVER ROLES">
+                                            <SelectItem Value=@("stakeholder")>Stakeholder</SelectItem>
+                                        </SelectGroup>
+                                    </Select>
+                                </EditTemplate>
+                                </DataGridColumn>
+                        </DataGridColumns>
+                        <ButtonRowTemplate>
+                            <Button Color="Color.Primary" Clicked="context.EditCommand.Clicked">Edit</Button>
+                        </ButtonRowTemplate>
+                    </DataGrid>
+                </Container>
+            </LayoutContent>
+        </Layout>
+    </Layout>
+</Container>
+
+<Modal @ref="addUserRef">
+    <ModalContent Centered>
+        <ModalHeader>
+            <ModalTitle>Add user</ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+            <Fields>
+                <Field>
+                    <FieldLabel>E-mail</FieldLabel>
+                    <TextEdit @bind-Text="email" Placeholder="email@example.com" />
+                </Field>
+                <Field>
+                    <FieldLabel>Name</FieldLabel>
+                    <TextEdit @bind-Text="name" Placeholder="" />
+                </Field>
+                <Field>
+                    <FieldLabel>Select role</FieldLabel>
+                    <Select TValue="string">
+                        <SelectGroup Label="RESPONDER ROLES">
+                            <SelectItem Value=@("owner")>Owner</SelectItem>
+                            <SelectItem Value=@("admin")>Admin</SelectItem>
+                            <SelectItem Value=@("user")>User</SelectItem>
+                        </SelectGroup>
+                        <SelectGroup Label="OBSERVER ROLES">
+                            <SelectItem Value=@("stakeholder")>Stakeholder</SelectItem>
+                        </SelectGroup>
+                    </Select>
+                </Field>
+            </Fields>
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Secondary" Clicked="@HideAddUser">Cancel</Button>
+            <Button Color="Color.Primary" Clicked="@AddUserAsync">Add</Button>
+        </ModalFooter>
+
+    </ModalContent>
+</Modal>
+

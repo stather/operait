@@ -1,22 +1,23 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using operait.Data;
 using Blazorise;
-using Blazorise.Icons.FontAwesome;
 using Blazorise.Bootstrap5;
+using Blazorise.Icons.FontAwesome;
+using FeatureHubSDK;
+using MediatR;
+using operait.Application.Commands;
+using operait.Services;
+using System.Reflection;
 
 namespace operait
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
-            builder.Services.AddSingleton<WeatherForecastService>();
             builder.Services
                 .AddBlazorise(options =>
                 {
@@ -24,8 +25,27 @@ namespace operait
                 })
                 .AddBootstrap5Providers()
                 .AddFontAwesomeIcons();
-            var app = builder.Build();
 
+            builder.Services.AddSingleton<DatabaseService>();
+
+            builder.Services.AddSingleton<IFeatureHubConfig>((sp) =>
+            {
+                var iConfiguration = sp.GetService<IConfiguration>();
+                var featureHubEdgeUrl = iConfiguration["FeatureHubEdgeUrl"];
+                var featureHubApiKey = iConfiguration["FeatureHubApiKey"];
+                IFeatureHubConfig config = new EdgeFeatureHubConfig(featureHubEdgeUrl, featureHubApiKey);
+                config.Init();
+                return config;
+            });
+
+            builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+
+            var app = builder.Build();
+            var ifh = app.Services.GetService<IFeatureHubConfig>();
+            while (ifh.Readyness != Readyness.Ready)
+            {
+                await Task.Delay(100);
+            }
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {

@@ -1,0 +1,44 @@
+﻿<LayoutHeader>
+    <Bar Breakpoint="Breakpoint.Desktop"
+         Background="Background.Light"
+         ThemeContrast="ThemeContrast.Light">
+        <BarBrand>
+            <BarLink To="/">operAIt</BarLink>
+        </BarBrand>
+        <BarToggler />
+        <BarMenu>
+            <BarStart>
+                <BarItem>
+                    <BarLink To="/alert/list">Alerts</BarLink>
+                </BarItem>
+                <FeatureHubFlag Feature="incidents">
+                    <BarItem>
+                        <BarLink>Incidents</BarLink>
+                    </BarItem>
+                </FeatureHubFlag>
+                <BarItem>
+                    <BarLink To="/whoisoncall">Who is on-call</BarLink>
+                </BarItem>
+                <BarItem>
+                    <BarLink To="/teams/list">Teams</BarLink>
+                </BarItem>
+                <FeatureHubFlag Feature="services">
+                    <BarItem>
+                        <BarLink>Services</BarLink>
+                    </BarItem>
+                </FeatureHubFlag>
+                <FeatureHubFlag Feature="analytics">
+                    <BarItem>
+                        <BarLink>Analytics</BarLink>
+                    </BarItem>
+                </FeatureHubFlag>
+                <BarItem>
+                    <BarLink To="/settings/user/users">Settings</BarLink>
+                </BarItem>
+            </BarStart>
+            <BarEnd>
+
+            </BarEnd>
+        </BarMenu>
+    </Bar>
+</LayoutHeader>

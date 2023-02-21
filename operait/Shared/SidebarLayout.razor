@@ -1,0 +1,129 @@
+﻿@inherits LayoutComponentBase
+
+<PageTitle>operait</PageTitle>
+
+<Layout>
+    <TopMenu />
+    <Layout Sider>
+        <LayoutSider>
+            <LayoutSiderContent>
+                <Bar Mode="BarMode.VerticalInline"
+                     CollapseMode="BarCollapseMode.Small"
+                     Breakpoint="Breakpoint.Desktop"
+                     NavigationBreakpoint="Breakpoint.Tablet"
+                     ThemeContrast="ThemeContrast.Light">
+                    <BarBrand>
+                        <BarItem>
+                            <BarLink To="#">
+                                <BarIcon IconName="IconName.Dashboard" />
+                                Settings
+                            </BarLink>
+                        </BarItem>
+                    </BarBrand>
+                    <BarMenu>
+                        <BarStart>
+                            <BarItem>
+                                <BarDropdown>
+                                    <BarDropdownToggle>
+                                        <BarIcon IconName="IconName.Edit" />
+                                        My Profile
+                                    </BarDropdownToggle>
+                                    <BarDropdownMenu>
+                                        <BarDropdownItem>Profile</BarDropdownItem>
+                                        <BarDropdownItem>Profile settings</BarDropdownItem>
+                                        <BarDropdownItem>Notifications</BarDropdownItem>
+                                        <BarDropdownItem>Forwarding rules</BarDropdownItem>
+                                        <BarDropdownItem>Your on-call schedule</BarDropdownItem>
+                                    </BarDropdownMenu>
+                                </BarDropdown>
+                            </BarItem>
+                            <BarItem>
+                                <BarDropdown>
+                                    <BarDropdownToggle>
+                                        <BarIcon IconName="IconName.Edit" />
+                                        On-Call
+                                    </BarDropdownToggle>
+                                    <BarDropdownMenu>
+                                        <BarDropdownItem>Global policies</BarDropdownItem>
+                                        <BarDropdownItem>All schedules</BarDropdownItem>
+                                        <BarDropdownItem>All escalations</BarDropdownItem>
+                                    </BarDropdownMenu>
+                                </BarDropdown>
+                            </BarItem>
+                            <BarItem>
+                                <BarDropdown>
+                                    <BarDropdownToggle>
+                                        <BarIcon IconName="IconName.Edit" />
+                                        Integrations
+                                    </BarDropdownToggle>
+                                    <BarDropdownMenu>
+                                        <BarDropdownItem>Integrations</BarDropdownItem>
+                                        <BarDropdownItem>Heartbeats</BarDropdownItem>
+                                        <BarDropdownItem>All escalations</BarDropdownItem>
+                                    </BarDropdownMenu>
+                                </BarDropdown>
+                            </BarItem>
+                            <BarItem>
+                                <BarDropdown>
+                                    <BarDropdownToggle>
+                                        <BarIcon IconName="IconName.Edit" />
+                                        Incident Configurations
+                                    </BarDropdownToggle>
+                                    <BarDropdownMenu>
+                                        <BarDropdownItem>Conference rooms</BarDropdownItem>
+                                        <BarDropdownItem>Incident templates</BarDropdownItem>
+                                        <BarDropdownItem>Response roles</BarDropdownItem>
+                                        <BarDropdownItem>Email templates</BarDropdownItem>
+                                    </BarDropdownMenu>
+                                </BarDropdown>
+                            </BarItem>
+                            <BarItem>
+                                <BarDropdown>
+                                    <BarDropdownToggle>
+                                        <BarIcon IconName="IconName.Edit" />
+                                        People
+                                    </BarDropdownToggle>
+                                    <BarDropdownMenu>
+                                        <BarDropdownItem>Users</BarDropdownItem>
+                                        <BarDropdownItem>Roles</BarDropdownItem>
+                                    </BarDropdownMenu>
+                                </BarDropdown>
+                            </BarItem>
+                            <BarItem>
+                                <BarDropdown>
+                                    <BarDropdownToggle>
+                                        <BarIcon IconName="IconName.Edit" />
+                                        Debug
+                                    </BarDropdownToggle>
+                                    <BarDropdownMenu>
+                                        <BarDropdownItem>Logs</BarDropdownItem>
+                                    </BarDropdownMenu>
+                                </BarDropdown>
+                            </BarItem>
+                            <BarItem>
+                                <BarDropdown>
+                                    <BarDropdownToggle>
+                                        <BarIcon IconName="IconName.Edit" />
+                                        App Settings
+                                    </BarDropdownToggle>
+                                    <BarDropdownMenu>
+                                        <BarDropdownItem>General</BarDropdownItem>
+                                        <BarDropdownItem>Central notification templates</BarDropdownItem>
+                                        <BarDropdownItem>Central notification templates</BarDropdownItem>
+                                        <BarDropdownItem>API key management</BarDropdownItem>
+                                    </BarDropdownMenu>
+                                </BarDropdown>
+                            </BarItem>
+                        </BarStart>
+                    </BarMenu>
+                </Bar>
+            </LayoutSiderContent>
+        </LayoutSider>
+        <Layout>
+            <LayoutContent>
+                @Body
+            </LayoutContent>
+        </Layout>
+    </Layout>
+
+</Layout>

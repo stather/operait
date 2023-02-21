@@ -1,0 +1,355 @@
+﻿@page "/teams/oncall/{teamId}"
+@using operait.Documents
+
+@layout TeamLayout
+
+<Container>
+    <Breadcrumb>
+        <BreadcrumbItem>
+            <BreadcrumbLink To="/teams/list">Teams</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbItem>
+            <BreadcrumbLink To="@($"/teams/oncall/{team?.Id}")">@team?.Name</BreadcrumbLink>
+        </BreadcrumbItem>
+    </Breadcrumb>
+    <Divider />
+    <Bar Breakpoint="Breakpoint.Desktop"
+         Background="Background.Light"
+         ThemeContrast="ThemeContrast.Light">
+        <BarBrand>On-call</BarBrand>
+        <BarMenu>
+            <BarStart>
+
+            </BarStart>
+            <BarEnd>
+                <BarItem>
+                    <Button Color="Color.Secondary" Clicked="@SaveView">Save view</Button>
+                </BarItem>
+            </BarEnd>
+        </BarMenu>
+    </Bar>
+    <Divider />
+    <Bar Breakpoint="Breakpoint.Desktop"
+         Background="Background.Light"
+         ThemeContrast="ThemeContrast.Light">
+        <BarBrand>Routing rules</BarBrand>
+        <BarMenu>
+            <BarStart>
+
+            </BarStart>
+            <BarEnd>
+                <BarItem>
+                    <Button Color="Color.Secondary" Clicked="@ShowAddRoutingRule">Add routing rule</Button>
+                </BarItem>
+                <BarItem>
+                    <BarDropdown>
+                        <BarDropdownToggle Color="Color.Secondary">
+                            ...
+                        </BarDropdownToggle>
+                        <BarDropdownMenu>
+                            <BarDropdownItem>Collapse</BarDropdownItem>
+                        </BarDropdownMenu>
+                    </BarDropdown>
+                </BarItem>
+
+            </BarEnd>
+        </BarMenu>
+    </Bar>
+    <Text>Route alerts to</Text>
+    <Select TValue="string">
+        <SelectGroup Label="OTHER">
+            <SelectItem>No one</SelectItem>
+        </SelectGroup>
+        <SelectGroup Label="ESCALATION(S)">
+            <Repeater Items="@team?.EscalationPolicies">
+                <SelectItem>@context.Name</SelectItem>
+            </Repeater>
+        </SelectGroup>
+        <SelectGroup Label="SCHEDULE(S)">
+            <Repeater Items="@team?.Schedules">
+                <SelectItem>@context.Name</SelectItem>
+            </Repeater>
+        </SelectGroup>
+    </Select>
+    <Divider />
+    <Bar Breakpoint="Breakpoint.Desktop"
+         Background="Background.Light"
+         ThemeContrast="ThemeContrast.Light">
+        <BarBrand>Escalation policies</BarBrand>
+        <BarMenu>
+            <BarStart>
+
+            </BarStart>
+            <BarEnd>
+                <BarItem>
+                    <Button Color="Color.Secondary" Clicked="@AddEscalation">Add escalation</Button>
+                </BarItem>
+                <BarItem>
+                    <BarDropdown>
+                        <BarDropdownToggle Color="Color.Secondary">
+                            ...
+                        </BarDropdownToggle>
+                        <BarDropdownMenu>
+                            <BarDropdownItem>Collapse</BarDropdownItem>
+                        </BarDropdownMenu>
+                    </BarDropdown>
+                </BarItem>
+
+            </BarEnd>
+        </BarMenu>
+    </Bar>
+    <Divider />
+    <Bar Breakpoint="Breakpoint.Desktop"
+         Background="Background.Light"
+         ThemeContrast="ThemeContrast.Light">
+        <BarBrand>On-call schedules</BarBrand>
+        <BarMenu>
+            <BarStart>
+
+            </BarStart>
+            <BarEnd>
+                <BarItem>
+                    <Button Color="Color.Secondary" Clicked="@ShowAddSchedule">Add schedule</Button>
+                </BarItem>
+                <BarItem>
+                    <BarDropdown>
+                        <BarDropdownToggle Color="Color.Secondary">
+                            ...
+                        </BarDropdownToggle>
+                        <BarDropdownMenu>
+                            <BarDropdownItem>Collapse</BarDropdownItem>
+                        </BarDropdownMenu>
+                    </BarDropdown>
+                </BarItem>
+
+            </BarEnd>
+        </BarMenu>
+    </Bar>
+    <Repeater Items="@(team?.Schedules)">
+        <Div Class="" Border="Border.Is1">
+            <Row>
+                <Column ColumnSize="ColumnSize.IsHalf">
+                    <Div Flex="Flex.JustifyContent.Start">
+                        <Div>
+                            @context.Name
+                        </Div>
+                    </Div>
+                </Column>
+                <Column ColumnSize="ColumnSize.IsHalf">
+                    <Div Flex="Flex.JustifyContent.End">
+                        <Div>
+                            <Icon Name="IconName.AngleDown" />
+                        </Div>
+                    </Div>
+                </Column>
+            </Row>
+            <Div Class="d-flex">
+                <Div>
+                    <Button Color="Color.Secondary" Size="Size.Small">Today</Button>
+                </Div>
+                <Div>
+                    <Button Color="Color.Secondary" Size="Size.Small"><Icon Name="IconName.ChevronLeft" /></Button>
+                </Div>
+                <Div>
+                    <Button Color="Color.Secondary" Size="Size.Small"><Icon Name="IconName.ChevronRight" /></Button>
+                </Div>
+                <Div Class="flex-grow-1">
+                    Nov xx - Dec cc
+                </Div>
+                <Div>
+                    <Button Color="Color.Secondary" Size="Size.Small">1 Day</Button>
+                </Div>
+                <Div>
+                    <Button Color="Color.Secondary" Size="Size.Small">1 Week</Button>
+                </Div>
+                <Div>
+                    <Button Color="Color.Secondary" Size="Size.Small">2 Weeks</Button>
+                </Div>
+                <Div>
+                    <Button Color="Color.Secondary" Size="Size.Small">1 Month</Button>
+                </Div>
+                <Div>
+                    <RadioGroup TValue="string" Name="CalendarType" Buttons>
+                        <Radio Size="Size.Small" Value="@("Calendar")">Calendar</Radio>
+                        <Radio Size="Size.Small" Value="@("Timeline")">Timeline</Radio>
+                    </RadioGroup>
+                </Div>
+            </Div>
+        </Div>
+        <Div Width="Width.Is100" Class="schedule-header d-flex">
+            <Div>Rotations</Div>
+            <Div>
+                <Button Clicked="@(() => ShowAddRotation(context))">+ Add rotation</Button>
+            </Div>
+        </Div>
+        <Div Width="Width.Is100" Class="d-flex">
+            <Div Style="max-width:120px;min-width:65px">
+                <Div Style="height:30px" Border="Border.OnBottom.Light"></Div>
+                <Repeater Context="rotation" Items="@(context.Rotations)">
+                    <Div Style="height:30px" Border="Border.OnBottom.Light">@rotation.Name</Div>
+                </Repeater>
+                <Div Style="height:30px"></Div>
+                <Div Class="position-absolute start-100" Style="width:10px;height:10px;"></Div>
+            </Div>
+            <Div Class="flex-grow-1" Style="position:relative;">
+                <RotationHeader Schedule="context" StartDate="StartDay" ViewPeriod="ViewPeriod"></RotationHeader>
+                <Repeater Context="rotation" Items="@(context.Rotations)">
+                    <Timeline Rotation="rotation" Team="team" ViewPeriod="ViewPeriod">
+
+                    </Timeline>
+                </Repeater>
+            </Div>
+        </Div>
+        <Div Width="Width.Is100" Class="schedule-header d-flex">
+            <Div>Overrides</Div>
+            <Div>
+                <Button Clicked="@(() => ShowAddRotation(context))">+ Add override</Button>
+            </Div>
+            <Div>
+                <Button Clicked="@(() => ShowAddRotation(context))">Take on-call for an hour</Button>
+            </Div>
+        </Div>
+        <Div Width="Width.Is100" Class="d-flex">
+            <Div Style="max-width:120px;min-width:65px">
+                <Div Style="height:30px"></Div>
+                <Div Style="height:30px">Rota1</Div>
+                <Div Style="height:30px"></Div>
+            </Div>
+            <Repeater Context="d" Items="TimelineColumns">
+                <Div Class="flex-fill" Border="Border.OnStart.Light">@d</Div>
+            </Repeater>
+        </Div>
+        <Div Width="Width.Is100" Class="schedule-header d-flex">
+            <Div>Final schedule</Div>
+        </Div>
+        <Div Width="Width.Is100" Class="d-flex">
+            <Div Style="max-width:120px;min-width:65px">
+                <Div Style="height:30px"></Div>
+                <Div Style="height:30px">Rota1's final</Div>
+                <Div Style="height:30px"></Div>
+            </Div>
+            <Repeater Context="d" Items="TimelineColumns">
+                <Div Class="flex-fill" Border="Border.OnStart.Light">@d</Div>
+            </Repeater>
+        </Div>
+    </Repeater>
+</Container>
+
+<AddRotation @ref="addRotationRef" Team="team">
+
+</AddRotation>
+
+<Modal @ref="@addRoutingRuleRef">
+    <ModalContent Centered Size="ModalSize.Large">
+        <ModalHeader>
+            <ModalTitle>Add routing rule</ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+            <Field>
+                <FieldLabel>Name</FieldLabel>
+                <TextEdit @bind-Text="routingRuleName" />
+            </Field>
+            <Field>
+                <FieldLabel>If the following conditions are met</FieldLabel>
+                <Select TValue="operait.Documents.RoutingMatch" @bind-SelectedValue="@RoutingMatchSelected">
+                    <SelectItem Value="@(operait.Documents.RoutingMatch.AllAlerts)">Match all alerts</SelectItem>
+                    <SelectItem Value="@(operait.Documents.RoutingMatch.OneOrMoreConditions)">Match one or more conditions below</SelectItem>
+                    <SelectItem Value="@(operait.Documents.RoutingMatch.AllConditions)">Match all conditions below</SelectItem>
+                </Select>
+            </Field>
+            @if (RoutingMatchSelected != operait.Documents.RoutingMatch.AllAlerts)
+            {
+                <Repeater Items="AddedConditions">
+                    <Fields>
+                        <Field>
+                            <Select TValue="RoutingItem" @bind-SelectedValue="@(context.Item)">
+                                <Repeater Context="c2" Items="@((RoutingItem[])(Enum.GetValues(typeof(RoutingItem))))">
+                                    <SelectItem Value="@c2">@c2.ToString()</SelectItem>
+                                </Repeater>
+                            </Select>
+                        </Field>
+                        <Field>
+                            <Select TValue="bool" @bind-SelectedValue="@(context.NotCondition)">
+                                <SelectItem Value="false">--</SelectItem>
+                                <SelectItem Value="true">NOT</SelectItem>
+                            </Select>
+                        </Field>
+                        <Field>
+                            <Select TValue="ConditionOperator" @bind-SelectedValue="@(context.Operator)">
+                                <Repeater Context="c3" Items="@(RoutingCondition.AllowedOperators[context.Item])">
+                                    <SelectItem Value="c3">@c3.ToString()</SelectItem>
+                                </Repeater>
+                            </Select>
+                        </Field>
+                        <Field>
+                            <TextEdit></TextEdit>
+                        </Field>
+                        <Field>
+                            <Button>X</Button>
+                        </Field>
+                    </Fields>
+                </Repeater>
+                <Field>
+                    <Button Clicked="AddCondition">+ Add new condition</Button>
+                </Field>
+            }
+            <Field>
+                <Switch TValue="bool" @bind-Checked=@(restrictIntervals)>Restrict to time intervals</Switch>
+            </Field>
+            @if (restrictIntervals)
+            {
+                <IntervalRestrictions>
+
+                </IntervalRestrictions>
+            }
+            }
+            <Field>
+                <FieldLabel>Then route using escalation/schedule</FieldLabel>
+                <Select TValue="string">
+                    <SelectGroup Label="OTHER">
+                        <SelectItem>No one</SelectItem>
+                    </SelectGroup>
+                    <SelectGroup Label="ESCALATION(S)">
+                        <Repeater Items="@team?.EscalationPolicies">
+                            <SelectItem>@context.Name</SelectItem>
+                        </Repeater>
+                    </SelectGroup>
+                    <SelectGroup Label="SCHEDULE(S)">
+                        <Repeater Items="@team?.Schedules">
+                            <SelectItem>@context.Name</SelectItem>
+                        </Repeater>
+                    </SelectGroup>
+                </Select>
+            </Field>
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Secondary" Clicked="@CloseAddRouting">Cancel</Button>
+            <Button Color="Color.Primary" Clicked="@CloseAddRouting">Add</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+
+<Modal @ref="addScheduleRef">
+    <ModalContent Centered>
+        <ModalHeader>
+            <ModalTitle>Add schedule</ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+            <Field>
+                <FieldLabel>Name</FieldLabel>
+                <TextEdit @bind-Text="@scheduleName"></TextEdit>
+            </Field>
+            <Field>
+                <FieldLabel>Description</FieldLabel>
+                <MemoEdit Rows="2" @bind-Text="scheduleDescription"></MemoEdit>
+            </Field>
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Secondary" Clicked="@CloseAddSchedule">Cancel</Button>
+            <Button Color="Color.Primary" Clicked="@AddSchedule">Add</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>

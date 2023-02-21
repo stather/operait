@@ -1,0 +1,136 @@
+﻿@page "/alert/list/{AlertId}"
+
+<Div Class="d-flex" Height="Height.Is100">
+    <Div Height="Height.Is100" Style="background-color:aquamarine;max-width:300px">
+        <Fields>
+            <Field ColumnSize="ColumnSize.Is10">
+                <TextEdit></TextEdit>
+            </Field>
+            <Field ColumnSize="ColumnSize.Is2">
+                <Button><Icon Name="Blazorise.Icons.FontAwesome.FontAwesomeIcons.AngleDoubleLeft" /></Button>
+            </Field>
+        </Fields>
+    </Div>
+    <Div Class="flex-grow-1">
+        <Container>
+            <Div>
+                <Field>
+                    <Button Type="ButtonType.Link" Size="Size.Small" To="/alert/list">Alerts</Button>
+                </Field>
+            </Div>
+            <Div Class="d-flex">
+                <Div>
+                    <Div>P5</Div>
+                    <Div>x1</Div>
+                    <Div>#1</Div>
+                </Div>
+                <Div Class="flex-grow-1">
+                    <Div>
+                        @(alert?.CreatedAt.ToString())
+                    </Div>
+                    <Div>
+                        @alert?.AlertMessage
+                    </Div>
+                </Div>
+                <Div>
+                    <Div>
+                        <Fields>
+                            <Field>
+                                <Button Size="Size.Small"><Icon Name="Blazorise.Icons.FontAwesome.FontAwesomeIcons.SyncAlt"></Icon></Button>
+                            </Field>
+                            <Field>
+                                <Button Size="Size.Small">Ack</Button>
+                            </Field>
+                            <Field>
+                                <Button Size="Size.Small">Close</Button>
+                            </Field>
+                            <Field>
+                                <Dropdown Style="z-index:2000;">
+                                    <DropdownToggle Size="Size.Small">
+                                        ...
+                                    </DropdownToggle>
+                                    <DropdownMenu>
+                                        <DropdownItem Clicked="@(ShowAddResponder)">Add responder</DropdownItem>
+                                        <DropdownItem>Delete</DropdownItem>
+                                    </DropdownMenu>
+                                </Dropdown>
+                            </Field>
+                        </Fields>
+                    </Div>
+                    <Div>
+                        <Div>@alert?.Status</Div>
+                    </Div>
+                </Div>
+            </Div>
+        </Container>
+        <Divider />
+        <Div Class="d-flex">
+            <Div Class="flex-grow-1">
+                <Container>
+                    <Tabs>
+                        <Items>
+                            <Tab Name="details">Details</Tab>
+                            <Tab Name="activityLog">Activity log</Tab>
+                            <Tab Name="responderStates">Responder states</Tab>
+                        </Items>
+                        <Content>
+                            <TabPanel Name="details">
+                                <Container>
+                                    <Div Class="d-flex">
+                                        <Div Class="row-label">Source</Div>
+                                        <Div Class="flex-grow-1">@alert?.Source</Div>
+                                    </Div>
+                                    <Div Class="d-flex">
+                                        <Div Class="row-label">Integration</Div>
+                                        <Div Class="flex-grow-1">@alert?.ApiIntegrationId</Div>
+                                    </Div>
+                                    <Div Class="d-flex">
+                                        <Div Class="row-label">Responders</Div>
+                                        <Div Class="flex-grow-1">
+                                            <Repeater Items="@alert?.Responders">
+                                                <Button Size="Size.Small" Type="ButtonType.Link">@(context.Name)</Button>
+                                                </Repeater>
+                                        </Div>
+                                    </Div>
+                                    <Div Class="d-flex">
+                                        <Div Class="row-label">Owner Team</Div>
+                                        <Div Class="flex-grow-1">@alert?.OwnerTeam</Div>
+                                    </Div>
+                                    <Div Class="d-flex">
+                                        <Div Class="row-label">Alias</Div>
+                                        <Div Class="flex-grow-1">@alert?.Alias</Div>
+                                    </Div>
+                                    <Div Class="d-flex">
+                                        <Div Class="row-label">Last Update At</Div>
+                                        <Div Class="flex-grow-1">@alert?.LastUpdated</Div>
+                                    </Div>
+                                    <Div Class="d-flex">
+                                        <Div Class="row-label">Description</Div>
+                                        <Div Class="flex-grow-1">@alert?.Description</Div>
+                                    </Div>
+                                    <Div Class="d-flex">
+                                        <Div Class="row-label">Priority</Div>
+                                        <Div Class="flex-grow-1">@alert?.Priority</Div>
+                                    </Div>
+                                    <Divider/>
+                                </Container>
+                            </TabPanel>
+                            <TabPanel Name="activityLog">
+                                <Container>
+                                    Content for activityLog
+                                </Container>
+                            </TabPanel>
+                            <TabPanel Name="responderStates">
+                                <Container>
+                                    Content for responderStates
+                                </Container>
+                            </TabPanel>
+                        </Content>
+                    </Tabs>
+                </Container>
+            </Div>
+            <Div>
+            </Div>
+        </Div>
+    </Div>
+</Div>
